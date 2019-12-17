@@ -1,0 +1,79 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const {Company} = require('../models/SchemaCompany');
+const {Permisos} = require('./SchemaRoles');
+const uniqueValidator = require('mongoose-unique-validator');
+const jwt = require('jsonwebtoken');
+
+const UsuariosDB = new Schema({
+    datos:{
+        nombre: {
+            type: String,
+            require: true,
+            trim: true,
+            lowercase: true,
+        
+        },
+        apellido:{
+            type: String,
+            require: true,
+            trim: true,
+            lowercase: true,
+            
+        },
+        email:{
+            type: String,
+            require: true,
+            trim: true,
+            lowercase: true,
+            unique: true,
+        },
+        fecha: {type:Date, default:Date.now},
+        password:{
+            type: String,
+            require: true,
+            trim: true,
+        },
+        estado:{
+            type: Boolean,
+            default: true
+        }
+    },
+    company:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Company",
+        require: true,
+        excludeIndexes: true
+    }],
+    permisos:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Permisos",
+        require: true,
+        excludeIndexes: true
+    }],
+    
+});
+
+UsuariosDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
+
+UsuariosDB.methods.loginJWT = function(){
+    return jwt.sign({ 
+        _id: this.id,
+        name: this.datos.nombre,
+        email: this.datos.email,
+        permisos: this.permisos
+    },process.env.NODE_FIRM_SAaf);
+};
+
+UsuariosDB.methods.tokenJWT = function(){
+    return jwt.sign({
+        usuario: this.company
+    },process.env.NODE_FIRM_data);
+};
+
+const Usuario = mongoose.model('Usuarios', UsuariosDB);
+
+module.exports ={
+    Usuario,
+    UsuariosDB
+}
