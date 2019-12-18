@@ -5,8 +5,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 
-
-app.use(cors());
+// ============================
+//  Uso de cors para usar el consumo del front en modo local
+// ============================
+const corsOptions = {
+    exposedHeaders: 'Authorization',
+  };
+  
+app.use(cors(corsOptions));
 
 
 // ============================
