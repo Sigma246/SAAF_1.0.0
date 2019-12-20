@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const {verificarLogin} = require('../middlewares/autenticacion');
 
-  router.post('/:idcompany',[
+  router.post('/idcompany',[
     check('datos.email').isEmail(),
     check('datos.password').isLength({ min: 4 })
   ],async(req, res) => {
@@ -18,7 +18,7 @@ const {verificarLogin} = require('../middlewares/autenticacion');
     }
 
     let body = req.body;
-    let id = req.params.idcompany;
+    let id = body.idcompany;
     const hashPassword = await bcrypt.hash(body.datos.password, 10)
     
     //let company = await Company.find().where('_id').in(body.company);
@@ -49,25 +49,25 @@ const {verificarLogin} = require('../middlewares/autenticacion');
   });
  
 
-router.get('/',async(req, res)=>{
+router.get('/idcompany',async(req, res)=>{
+  let body = req.body;
   try {
-    let Usuarios = await Usuario.find();  
+    let company = await Company.find({_id : body.idcompany}).populate({path:'usuarios'});  
     res.json({
       ok: true,
-      usuario: Usuarios
+      usuario: company
     });
   } catch (e) {
     res.status(500).json(e);
   }
 });
 
-router.get('/:idUser',async(req, res)=>{
-  let id = req.params.idUser;
+router.get('/idUser',async(req, res)=>{
+  let body = req.body;
+  let id = body.idUser;
   
   try {
-    let Usuarios = await Usuario.findById({_id: id })
-    .populate({path:'company', populate: { path:'empresa' } });
-    
+    let Usuarios = await Usuario.findById({_id: id }).populate({path: 'company'}).populate({path: 'permisos'});
     res.json({
       ok: true,
       usuario: Usuarios
@@ -78,8 +78,9 @@ router.get('/:idUser',async(req, res)=>{
 });
 
 
-router.delete('/:idUser',async(req, res)=>{
-  let id = req.params.idUser;
+router.delete('/idUser',async(req, res)=>{
+  let body = req.body;
+  let id = body.idUser;
   try {
     let Usuarios = await Usuario.findOneAndDelete({_id: id });  
     res.json({
@@ -92,15 +93,33 @@ router.delete('/:idUser',async(req, res)=>{
   }
 });
 
-
-router.put('/:idUser/:idcompany',async(req, res)=>{
-  let id = req.params.idUser;
-  let company =  req.params.idcompany;
+router.put('/idcompany/idUser/permisos',async(req, res)=>{
   let body = req.body;
-  const hashPassword = await bcrypt.hash(body.datos.password, 10)
+  let id = body.idUser;
+  let company =  body.idcompany;
+  let idpermisos =  body.permisos;
   
-  let permisos = await Permisos.find().where('_id').in(body.permisos);
+  try {
+    let usuario =  await Usuario.findById({_id: id}).populate({path:'permisos'});
+    let permisos = await Usuario.updateOne({_id: id}, {$set: {permisos: idpermisos }});
+    res.json({
+      ok: true,
+      usuario,
+      message: "Permiso modificado"
+    });
+  } catch (e) {
+    res.status(500).json(e);
+  }
 
+});
+
+router.put('/idcompany/idUser',async(req, res)=>{
+  let body = req.body;
+  let id = body.idUser;
+  let company =  body.idcompany;
+  
+  const hashPassword = await bcrypt.hash(body.datos.password, 10);
+  
   try {
     let usuario = new Usuario({
       datos:{
@@ -109,11 +128,10 @@ router.put('/:idUser/:idcompany',async(req, res)=>{
         email: body.datos.email,
         password: hashPassword,
       },
-      company,
-      permisos,
-      _id: id
     });
-    let Usuarios = await Usuario.findByIdAndUpdate({_id: id}, usuario);  
+
+    let Usuarios = await Usuario.findOneAndUpdate({_id: id},{$set:{datos: usuario.datos}});
+    
     res.json({
       ok: true,
       usuario: Usuarios,

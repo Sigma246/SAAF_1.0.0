@@ -48,8 +48,9 @@ router.get('/',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=
     }
   });
 
-router.get('/:idCompany',async(req, res)=>{
-    let id = req.params.idCompany;
+router.get('/idCompany',async(req, res)=>{
+    let body = req.body;
+    let id = body.idCompany;
     try {
         let company = await Company.findById({_id: id }).populate({ path:'empresa' }).populate({ path:'usuarios' });
         res.json({
@@ -61,18 +62,16 @@ router.get('/:idCompany',async(req, res)=>{
     }
 }); 
 
-router.put('/:idCompany',async(req, res)=>{
-    let id = req.params.idCompany;
+router.put('/idCompany',async(req, res)=>{
     let body = req.body;
+    let id = body.idCompany;
     let empresa = await Empresa.find().where('_id').in(body.empresa);
     try {
         let companydb = new Company({
-            _id: id,
             nombre: body.nombre,
             nombre_corto: body.nombre_corto,
-            empresa
         });
-      let company = await Company.findByIdAndUpdate(id, companydb);  
+      let company = await Company.findByIdAndUpdate(id,{$set:{companydb}});  
       res.json({
         ok: true,
         message: "Compañia Actualizada",
@@ -84,8 +83,9 @@ router.put('/:idCompany',async(req, res)=>{
   });
 
 
-  router.delete('/:idCompany',async(req, res)=>{
-    let id = req.params.idCompany;
+  router.delete('/idCompany',async(req, res)=>{
+    let body = req.body;
+    let id = body.idCompany;
     try {
       let company = await Company.findOneAndDelete({_id: id });  
       res.json({

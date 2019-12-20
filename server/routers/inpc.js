@@ -4,7 +4,7 @@ const {inpc} = require('../models/SchemaInpc');
 const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
-router.post('/:idcompany',[
+router.post('/idcompany',[
     check('year').isLength({ min: 2 })]
     ,async(req, res)=>{
 
@@ -14,7 +14,7 @@ router.post('/:idcompany',[
     }
         
     let body = req.body;
-    let idcompany = req.params.idcompany;
+    let idcompany = body.idcompany;
    
     try {
         let Inpc = new inpc({
@@ -60,8 +60,8 @@ router.put('/:idcompany/:idinpc',[
     }
         
     let body = req.body;
-    let id = req.params.idinpc;
-    let idcompany = req.params.idcompany;
+    let id = body.idinpc;
+    let idcompany = body.idcompany;
    
     try {
         let Inpc = new inpc({
@@ -80,7 +80,6 @@ router.put('/:idcompany/:idinpc',[
                 11: body.meses.noviembre,
                 12: body.meses.diciembre,
             },
-            company: idcompany,
             _id: id    
         });
 
@@ -98,9 +97,10 @@ router.put('/:idcompany/:idinpc',[
 
 
 
-router.get('/:idcompany/:idinpc',async(req, res)=>{
-    let id = req.params.idinpc;
-    let idcompany = req.params.idcompany;
+router.get('/idcompany/idinpc',async(req, res)=>{
+    let body =  req.body;
+    let id = body.idinpc;
+    let idcompany = body.idcompany;
 
     try {
         let Inpc = await inpc.findById(id);
@@ -114,8 +114,9 @@ router.get('/:idcompany/:idinpc',async(req, res)=>{
 });
 
 
-router.get('/:idcompany',async(req, res)=>{
-    let id = req.params.idcompany;
+router.get('/idcompany',async(req, res)=>{
+    let body =  req.body;
+    let id = body.idcompany;
 
     try {
         let company = await Company.findById(id).populate({path:'inpc'});
@@ -129,9 +130,10 @@ router.get('/:idcompany',async(req, res)=>{
 });
 
 
-router.delete('/:idcompany/:idinpc',async(req, res)=>{
-    let id = req.params.idinpc;
-    let idcompany = req.params.idcompany;
+router.delete('/idcompany/idinpc',async(req, res)=>{
+    let body = req.body;
+    let id = body.idinpc;
+    let idcompany = body.idcompany;
 
     try {
         let Inpc = await inpc.findByIdAndDelete(id);

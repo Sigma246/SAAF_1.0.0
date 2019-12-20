@@ -5,10 +5,10 @@ const {Company} = require('../models/SchemaCompany');
 const {Usuario} = require('../models/SchemaUsuarios');
 const { check, validationResult } = require('express-validator');
 
-router.post('/:idcompany',async(req, res)=>{
+router.post('/idcompany',async(req, res)=>{
 
     let body = req.body;
-    let idcompany = req.params.idcompany;
+    let idcompany = body.idcompany;
     
     try {
         
@@ -31,18 +31,17 @@ router.post('/:idcompany',async(req, res)=>{
     }
 });
 
-router.put('/:idcompany/:idrole',async(req, res)=>{
+router.put('/idcompany/idrole',async(req, res)=>{
 
     let body = req.body;
-    let id = req.params.idrole;
-    let idcompany = req.params.idcompany;
+    let id = body.idrole;
+    let idcompany = body.idcompany;
     
     try {
 
         let Permiso = new Permisos({
             nombre: body.nombre,
             permisos: body.permisos,
-            company: idcompany,
             _id: id,
         });
 
@@ -58,10 +57,10 @@ router.put('/:idcompany/:idrole',async(req, res)=>{
     }
 });
 
-router.get('/:idcompany/:idrole',async(req, res)=>{
-
-    let id = req.params.idrole;
-    let idcompany = req.params.idcompany;
+router.get('/idcompany/idrole',async(req, res)=>{
+    let body = req.body;
+    let id = body.idrole;
+    let idcompany = body.idcompany;
 
     try {
         let permisos = await Permisos.findById(id);
@@ -74,8 +73,9 @@ router.get('/:idcompany/:idrole',async(req, res)=>{
     }
 });
 
-router.get('/:idcompany',async(req, res)=>{
-    let id = req.params.idcompany;
+router.get('/idcompany',async(req, res)=>{
+    let body = req.body;
+    let id = body.idcompany;
     try {
         let company = await Company.findById({_id: id }).populate({ path:'permisos' });
         res.json({
@@ -88,10 +88,10 @@ router.get('/:idcompany',async(req, res)=>{
 }); 
 
 
-router.delete('/:idrole',async(req, res)=>{
-
-    let id = req.params.idrole;
-    let idcompany = req.params.idcompany;
+router.delete('/idrole',async(req, res)=>{
+    let body = req.body;
+    let id = body.idrole;
+    let idcompany = body.idcompany;
 
     try {
         let permisos = await Permisos.findByIdAndDelete(id);

@@ -5,7 +5,7 @@ const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
 
-router.post('/:idcompany',[
+router.post('/idcompany',[
     check('moneda_origen').isLength({ min: 2 }),
     check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
@@ -16,7 +16,7 @@ router.post('/:idcompany',[
     }
         
     let body = req.body;
-    let idcompany = req.params.idcompany;
+    let idcompany = body.idcompany;
    
     try {
         let tdc = new Tdc({
@@ -39,7 +39,7 @@ router.post('/:idcompany',[
     }
 });
 
-router.put('/:idcompany/:idtdc',[
+router.put('/idcompany/idtdc',[
     check('moneda_origen').isLength({ min: 2 }),
     check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
@@ -50,8 +50,8 @@ router.put('/:idcompany/:idtdc',[
     }
         
     let body = req.body;
-    let id = req.params.idtdc;
-    let idcompany = req.params.idcompany;
+    let id = body.idtdc;
+    let idcompany = body.idcompany;
    
     try {
         let tdc = new Tdc({
@@ -74,10 +74,10 @@ router.put('/:idcompany/:idtdc',[
     }
 });
 
-router.get('/:idcompany/:idtdc',async(req, res)=>{
-
-    let id = req.params.idtdc;
-    let idcompany = req.params.idcompany;
+router.get('/idcompany/idtdc',async(req, res)=>{
+    let body = req.body;
+    let id = body.idtdc;
+    let idcompany = body.idcompany;
 
     try {
         let tdc = await Tdc.findById(id);
@@ -90,8 +90,9 @@ router.get('/:idcompany/:idtdc',async(req, res)=>{
     }
 });
 
-router.get('/:idcompany',async(req, res)=>{
-    let id = req.params.idcompany;
+router.get('/idcompany',async(req, res)=>{
+    let body =  req.body;
+    let id = body.idcompany;
     try {
         let company = await Company.findById({_id: id }).populate({ path:'tdc' });
         res.json({
@@ -103,9 +104,9 @@ router.get('/:idcompany',async(req, res)=>{
     }
 }); 
 
-router.delete('/:idtdc',async(req, res)=>{
-
-    let id = req.params.idtdc;
+router.delete('/idtdc',async(req, res)=>{
+    let body = req.body;
+    let id = body.idtdc;
     let idcompany = req.params.idcompany;
 
     try {

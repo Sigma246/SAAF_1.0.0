@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const {Empresa} = require('./SchemaEmpresa');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const ProveedoresDB =  new Schema({
+const ProyectosDB = new Schema({
     clave:{
         type: String,
         require: true,
@@ -16,20 +16,9 @@ const ProveedoresDB =  new Schema({
         lowercase: true,
         trim: true,
     },
-    email:{
-        type: String,
-        require: true,
-        lowercase: true,
-        trim: true,
-    },
-    telefono:{
+    importe:{
         type: Number,
         require: true,
-        lowercase: true,
-        trim: true,
-    },
-    rfc:{
-        type: String,
         lowercase: true,
         trim: true,
     },
@@ -43,9 +32,9 @@ const ProveedoresDB =  new Schema({
 });
 
 
-ProveedoresDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
-const Proveedores = mongoose.model('Proveedores', ProveedoresDB);
+ProyectosDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
+const Proyectos = mongoose.model('Proyectos', ProyectosDB);
 
 module.exports ={
-    Proveedores
+    Proyectos
 }

@@ -4,7 +4,7 @@ const {Empresa} = require('../models/SchemaEmpresa');
 const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
-router.post('/:idcompany',[
+router.post('/idcompany',[
     check('nombre').isLength({ min: 4 }),
     check('nombre_corto').isLength({ min: 4 })
 ],async(req, res)=>{
@@ -14,7 +14,7 @@ router.post('/:idcompany',[
       return res.status(422).json({ errors: errors.array() });
     }
     let body = req.body;
-    let id = req.params.idcompany;
+    let id = body.idcompany;
 
     try {
         let empresa = new Empresa({
@@ -36,20 +36,23 @@ router.post('/:idcompany',[
 }); 
 
 
-router.get('/',async(req, res)=>{
+router.get('/idcompany',async(req, res)=>{
+  let body = req.body;
+  let id = body.idcompany;
     try {
-      let empresa = await Empresa.find();  
+      let company = await Company.find({_id:id}).populate({path: 'empresa'});  
       res.json({
         ok: true,
-        empresa
+        company
       });
     } catch (e) {
       res.status(500).json(e);
     }
   });
 
-router.get('/:idEmpresa',async(req, res)=>{
-    let id = req.params.idEmpresa;
+router.get('/idEmpresa',async(req, res)=>{
+    let body = req.body;
+    let id = body.idEmpresa;
     try {
         let empresa = await Empresa.findById({_id: id });  
         res.json({
@@ -61,9 +64,9 @@ router.get('/:idEmpresa',async(req, res)=>{
     }
 }); 
 
-router.put('/:idEmpresa',async(req, res)=>{
-    let id = req.params.idEmpresa;
-    let body = req.body;
+router.put('/idEmpresa',async(req, res)=>{
+  let body = req.body;  
+  let id = body.idEmpresa;
     
     try {
         let empresadb = new Empresa({
@@ -83,8 +86,9 @@ router.put('/:idEmpresa',async(req, res)=>{
   });
 
 
-  router.delete('/:idEmpresa',async(req, res)=>{
-    let id = req.params.idEmpresa;
+  router.delete('/idEmpresa',async(req, res)=>{
+    let body = req.body;
+    let id = body.idEmpresa;
     try {
       let empresa = await Empresa.findOneAndDelete({_id: id });  
       res.json({

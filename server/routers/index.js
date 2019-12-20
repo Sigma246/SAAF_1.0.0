@@ -8,5 +8,8 @@ app.use('/empresa', require('./empresa'));
 app.use('/permisos', require('./roles'));
 app.use('/tiposdecambio', require('./tiposdecambio'));
 app.use('/inpc', require('./inpc'));
+app.use('/proveedor', require('./proveedor'));
+app.use('/proyecto', require('./proyecto'));
+app.use('/catalogo/:idcompany/:idempresa', require('./catalogo'));
 
 module.exports = app;
