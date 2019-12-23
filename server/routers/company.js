@@ -48,9 +48,9 @@ router.get('/',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=
     }
   });
 
-router.get('/idCompany',async(req, res)=>{
+router.get('/:idCompany',async(req, res)=>{
     let body = req.body;
-    let id = body.idCompany;
+    let id = req.params.idCompany;
     try {
         let company = await Company.findById({_id: id });
         res.json({
@@ -62,9 +62,9 @@ router.get('/idCompany',async(req, res)=>{
     }
 }); 
 
-router.put('/idCompany',async(req, res)=>{
+router.put('/:idCompany',async(req, res)=>{
     let body = req.body;
-    let id = body.idCompany;
+    let id = req.params.idCompany;
     let empresa = await Empresa.find().where('_id').in(body.empresa);
     try {
       let company = await Company.findByIdAndUpdate(id,{$set:{
@@ -83,9 +83,9 @@ router.put('/idCompany',async(req, res)=>{
   });
 
 
-  router.delete('/idCompany',async(req, res)=>{
+  router.delete('/:idCompany',async(req, res)=>{
     let body = req.body;
-    let id = body.idCompany;
+    let id = req.params.idCompany;
     try {
       let company = await Company.findOneAndDelete({_id: id });  
       res.json({

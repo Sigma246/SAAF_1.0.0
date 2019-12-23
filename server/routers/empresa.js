@@ -4,7 +4,7 @@ const {Empresa} = require('../models/SchemaEmpresa');
 const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
-router.post('/idcompany',[
+router.post('/:idcompany',[
     check('nombre').isLength({ min: 4 }),
     check('nombre_corto').isLength({ min: 4 })
 ],async(req, res)=>{
@@ -14,13 +14,13 @@ router.post('/idcompany',[
       return res.status(422).json({ errors: errors.array() });
     }
     let body = req.body;
-    let id = body.idcompany;
+    let company = req.params.idcompany;
 
     try {
         let empresa = new Empresa({
             nombre: body.nombre,
             nombre_corto: body.nombre_corto,
-            company: id
+            company
         });
         let empresaDB = await empresa.save();  
         //let company = await Company.updateOne({_id: id}, {$push: {empresa: empresa.id }});
@@ -36,17 +36,18 @@ router.post('/idcompany',[
 }); 
 
 
-router.get('/idcompany',async(req, res)=>{
+router.get('/:idcompany',async(req, res)=>{
   let body = req.body;
+  let company= req.params.idcompany;
 
-  let desde = body.desde || 0;
+  let desde = req.query.desde || 0;
   desde = Number(desde);
 
-  let limite = body.limite || 10;
+  let limite = req.query.limite || 10;
   limite = Number(limite);
 
     try {
-      let empresa = await Empresa.find({'company': body.idcompany}).skip(desde).limit(limite);
+      let empresa = await Empresa.find({'company': company}).skip(desde).limit(limite);
       res.json({
         ok: true,
         empresa
@@ -56,9 +57,9 @@ router.get('/idcompany',async(req, res)=>{
     }
   });
 
-router.get('/idEmpresa',async(req, res)=>{
-    let body = req.body;
-    let id = body.idEmpresa;
+router.get('/:idCompany/:idEmpresa',async(req, res)=>{
+    
+    let id = req.params.idEmpresa;
     try {
         let empresa = await Empresa.findById({_id: id });  
         res.json({
@@ -70,12 +71,13 @@ router.get('/idEmpresa',async(req, res)=>{
     }
 }); 
 
-router.put('/idEmpresa',async(req, res)=>{
+router.put('/:idCompany/:idEmpresa',async(req, res)=>{
   let body = req.body;  
-  let id = body.idEmpresa;
+  let idempresa = req.params.idEmpresa;
+  let idcompany = req.params.idCompany;
     
     try {  
-      let empresa = await Empresa.findByIdAndUpdate(id,{$set:{
+      let empresa = await Empresa.findByIdAndUpdate({_id: idempresa,company: idcompany },{$set:{
         'nombre':body.nombre, 
         'nombre_corto':body.nombre_corto, 
         'estado':body.estado
@@ -91,11 +93,12 @@ router.put('/idEmpresa',async(req, res)=>{
   });
 
 
-  router.delete('/idEmpresa',async(req, res)=>{
+  router.delete('/:idCompany/:idEmpresa',async(req, res)=>{
     let body = req.body;
-    let id = body.idEmpresa;
+    let idcompany = req.params.idCompany;
+    let idempresa = req.params.idEmpresa;
     try {
-      let empresa = await Empresa.findOneAndDelete({_id: id });  
+      let empresa = await Empresa.findOneAndDelete({_id: idempresa, company: idcompany });  
       res.json({
       ok: true,
       message: "Empresa Eliminada",
