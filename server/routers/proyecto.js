@@ -4,7 +4,7 @@ const {Proyectos} = require('../models/SchemaProyectos');
 const {Empresa} = require('../models/SchemaEmpresa');
 const { check, validationResult } = require('express-validator');
 
-router.post('/idempresa',[
+router.post('/post/:idcompany/:idempresa',[
     check('clave').isLength({ min: 2 }),
     check('nombre').isLength({ min: 2 }),
     check('importe').isLength({ min: 1 }),
@@ -17,16 +17,16 @@ router.post('/idempresa',[
     }
 
     let body = req.body;
-    let idempresa = body.idempresa;
-    let idcompany = body.idcompany;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
 
     try {
         let proyectoDB = new Proyectos({
             clave: body.clave,
             nombre: body.nombre,
             importe: body.importe,
-            empresa: idempresa,
-            company: idcompany
+            company,
+            empresa,
         });
         let proyecto = await proyectoDB.save();
        // let empresa = await Empresa.updateOne({_id: idempresa}, {$push: {proyectos: proyecto.id }});   
@@ -41,7 +41,7 @@ router.post('/idempresa',[
 });
 
 
-router.put('/idempresa/idproyecto',[
+router.put('/put/:idcompany/:idempresa/:idproyecto',[
     check('clave').isLength({ min: 2 }),
     check('nombre').isLength({ min: 2 }),
     check('importe').isLength({ min: 1 }),
@@ -54,18 +54,20 @@ router.put('/idempresa/idproyecto',[
     }
 
     let body = req.body;
-    let idempresa = body.idempresa;
-    let id = body.idproyecto;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproyecto;
 
     try {
         let proyectoDB = new Proyectos({
             clave: body.clave,
             nombre: body.nombre,
             importe: body.importe,
-            empresa: idempresa,
+            company,
+            empresa,
             _id: id
         });
-        let proyecto = await Proyectos.findByIdAndUpdate({_id: id},proyectoDB);
+        let proyecto = await Proyectos.findOneAndUpdate({_id: id,company,empresa},proyectoDB);
         res.json({
             ok: true,
             proyecto,
@@ -77,17 +79,18 @@ router.put('/idempresa/idproyecto',[
 });
 
 
-router.get('/idempresa',async(req, res)=>{
-    let body = req.body;
+router.get('/get/:idcompany/:idempresa',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
 
-    let desde = body.desde || 0;
+    let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = body.limite || 10;
+    let limite = req.query.limite || 10;
     limite = Number(limite);
 
     try {
-      let proyectos = await Proyectos.find({'empresa': body.idempresa, 'company': body.idcompany}).skip(desde).limit(limite);
+      let proyectos = await Proyectos.find({'empresa': empresa, 'company': company}).skip(desde).limit(limite);
       res.json({
         ok: true,
         proyectos
@@ -98,11 +101,12 @@ router.get('/idempresa',async(req, res)=>{
 });
 
 
-router.get('/idEmpresa/idproyecto',async(req, res)=>{
-    let body = req.body;
-    let id = body.idproyecto;
+router.get('/get/:idcompany/:idempresa/:idproyecto',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproyecto;
     try {
-        let proyecto = await Proyectos.findById({_id: id });  
+        let proyecto = await Proyectos.findOne({_id: id , company ,empresa});  
         res.json({
         ok: true,
         proyecto
@@ -113,11 +117,12 @@ router.get('/idEmpresa/idproyecto',async(req, res)=>{
 });
 
 
-router.delete('/idEmpresa/idproyecto',async(req, res)=>{
-    let body = req.body;
-    let id = body.idproyecto;
+router.delete('/delete/:idcompany/:idempresa/:idproyecto',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproyecto;
     try {
-        let proyecto = await Proyectos.findByIdAndDelete({_id: id });  
+        let proyecto = await Proyectos.findOneAndDelete({_id: id, company ,empresa });  
         res.json({
         ok: true,
         proyecto,

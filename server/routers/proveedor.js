@@ -4,7 +4,7 @@ const {Proveedores} = require('../models/SchemaProveedores');
 const {Empresa} = require('../models/SchemaEmpresa');
 const { check, validationResult } = require('express-validator');
 
-router.post('/idempresa',[
+router.post('/post/:idcompany/:idempresa',[
     check('email').isEmail(),
     check('telefono').isLength({ min: 10 }),
     check('clave').isLength({ min: 2 }),
@@ -17,6 +17,8 @@ router.post('/idempresa',[
     }
 
     let body = req.body;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
 
     try {
         let proveedordb = new Proveedores({
@@ -25,15 +27,13 @@ router.post('/idempresa',[
             email: body.email,
             telefono: body.telefono,
             rfc: body.rfc,
-            empresa: body.idempresa,
-            company: body.idcompany
+            company,
+            empresa
         });
         let proveedor = await proveedordb.save();
-        //let empresa = await Empresa.updateOne({_id: body.idempresa}, {$push: {proveedor: proveedor.id }});   
         res.json({
             ok: true,
             proveedor,
-            //empresa
         });     
     } catch (e) {
         res.status(500).json(e);
@@ -41,7 +41,7 @@ router.post('/idempresa',[
 });
 
 
-router.put('/idempresa/idproveedor',[
+router.put('/put/:idcompany/:idempresa/:idproveedor',[
     check('email').isEmail(),
     check('telefono').isLength({ min: 10 }),
     check('clave').isLength({ min: 2 }),
@@ -54,8 +54,9 @@ router.put('/idempresa/idproveedor',[
     }
 
     let body = req.body;
-    let idempresa = body.idempresa;
-    let id = body.idproveedor;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproveedor;
 
     try {
         let proveedordb = new Proveedores({
@@ -67,7 +68,7 @@ router.put('/idempresa/idproveedor',[
             _id: id
         });
         
-        let proveedor = await Proveedores.findByIdAndUpdate({_id: id}, proveedordb);
+        let proveedor = await Proveedores.findOneAndUpdate({_id: id,company,empresa}, proveedordb);
         res.json({
             ok: true,
             proveedor
@@ -77,17 +78,18 @@ router.put('/idempresa/idproveedor',[
     }
 });
 
-router.get('/idempresa',async(req, res)=>{
-    let body = req.body;
+router.get('/get/:idcompany/:idempresa',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
 
-    let desde = body.desde || 0;
+    let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = body.limite || 10;
+    let limite = req.query.limite || 10;
     limite = Number(limite);
 
     try {
-      let proveedores = await Proveedores.find({'company': body.idcompany, 'empresa': body.idempresa}).skip(desde).limit(limite);
+      let proveedores = await Proveedores.find({'company': company, 'empresa': empresa}).skip(desde).limit(limite);
       res.json({
         ok: true,
         proveedores
@@ -97,11 +99,13 @@ router.get('/idempresa',async(req, res)=>{
     }
   });
 
-router.get('/idEmpresa/idproveedor',async(req, res)=>{
-    let body = req.body;
-    let id = body.idproveedor;
+router.get('/get/:idcompany/:idempresa/:idproveedor',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproveedor;
+
     try {
-        let proveedor = await Proveedores.findById({_id: id });  
+        let proveedor = await Proveedores.findOne({_id: id, company, empresa });  
         res.json({
         ok: true,
         proveedor
@@ -111,11 +115,12 @@ router.get('/idEmpresa/idproveedor',async(req, res)=>{
     }
 });
 
-router.delete('/idEmpresa/idproveedor',async(req, res)=>{
-    let body = req.body;
-    let id = body.idproveedor;
+router.delete('/delete/:idcompany/:idempresa/:idproveedor',async(req, res)=>{
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.idproveedor;
     try {
-        let proveedor = await Proveedores.findByIdAndDelete({_id: id });  
+        let proveedor = await Proveedores.findOneAndDelete({_id: id, company, empresa });  
         res.json({
         ok: true,
         proveedor,

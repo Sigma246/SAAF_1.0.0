@@ -5,7 +5,7 @@ const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
 
-router.post('/idcompany',[
+router.post('/post/:idcompany',[
     check('moneda_origen').isLength({ min: 2 }),
     check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
@@ -16,14 +16,14 @@ router.post('/idcompany',[
     }
         
     let body = req.body;
-    let idcompany = body.idcompany;
+    let company = req.params.idcompany;
    
     try {
         let tdc = new Tdc({
             moneda_o: body.moneda_origen,
             moneda_d: body.moneda_destino,
             valor: body.valor,
-            company: idcompany    
+            company    
         });
 
         let tipodecambio = await tdc.save();
@@ -39,7 +39,7 @@ router.post('/idcompany',[
     }
 });
 
-router.put('/idcompany/idtdc',[
+router.put('/put/:idcompany/:idtdc',[
     check('moneda_origen').isLength({ min: 2 }),
     check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
@@ -50,8 +50,8 @@ router.put('/idcompany/idtdc',[
     }
         
     let body = req.body;
-    let id = body.idtdc;
-    let idcompany = body.idcompany;
+    let id = req.params.idtdc;
+    let idcompany = req.params.idcompany;
    
     try {
         let tdc = new Tdc({
@@ -74,13 +74,13 @@ router.put('/idcompany/idtdc',[
     }
 });
 
-router.get('/idcompany/idtdc',async(req, res)=>{
+router.get('/get/:idcompany/:idtdc',async(req, res)=>{
     let body = req.body;
-    let id = body.idtdc;
-    let idcompany = body.idcompany;
+    let id = req.params.idtdc;
+    let company = req.params.idcompany;
 
     try {
-        let tdc = await Tdc.findById(id);
+        let tdc = await Tdc.findById({_id: id,company: company});
         res.json({
             ok: true,
             tipodecambio: tdc,
@@ -90,17 +90,18 @@ router.get('/idcompany/idtdc',async(req, res)=>{
     }
 });
 
-router.get('/idcompany',async(req, res)=>{
+router.get('/get/:idcompany',async(req, res)=>{
     let body =  req.body;
-    
-    let desde = body.desde || 0;
+    let idcompany = req.params.idcompany
+
+    let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = body.limite || 10;
+    let limite = req.query.limite || 10;
     limite = Number(limite);  
 
     try {
-        let tipo_de_cambio = await Tdc.find({'company': body.idcompany}).skip(desde).limit(limite);
+        let tipo_de_cambio = await Tdc.find({'company': idcompany}).skip(desde).limit(limite);
         res.json({
         ok: true,
         tdc: tipo_de_cambio
@@ -110,13 +111,11 @@ router.get('/idcompany',async(req, res)=>{
     }
 }); 
 
-router.delete('/idtdc',async(req, res)=>{
-    let body = req.body;
-    let id = body.idtdc;
-    let idcompany = req.params.idcompany;
+router.delete('/delete/:idcompany/:idtdc',async(req, res)=>{
+    let id = req.params.idtdc;
 
     try {
-        let tdc = await Tdc.findByIdAndDelete(id);
+        let tdc = await Tdc.findByIdAndDelete({_id: id});
         res.json({
             ok: true,
             tipodecambio: tdc,

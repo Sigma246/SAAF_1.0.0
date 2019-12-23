@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const {verificarLogin} = require('../middlewares/autenticacion');
 
-  router.post('/idcompany',[
+  router.post('post/:idcompany',[
     check('datos.email').isEmail(),
     check('datos.password').isLength({ min: 4 })
   ],async(req, res) => {
@@ -18,7 +18,7 @@ const {verificarLogin} = require('../middlewares/autenticacion');
     }
 
     let body = req.body;
-    let id = body.idcompany;
+    let id = req.params.idcompany;
     const hashPassword = await bcrypt.hash(body.datos.password, 10)
     
     //let company = await Company.find().where('_id').in(body.company);
@@ -49,17 +49,18 @@ const {verificarLogin} = require('../middlewares/autenticacion');
   });
  
 
-router.get('/idcompany',async(req, res)=>{
+router.get('/get/:idcompany',async(req, res)=>{
   let body = req.body;
-  
-  let desde = body.desde || 0;
+  let company = req.params.idcompany;
+
+  let desde = req.query.desde || 0;
     desde = Number(desde);
 
-  let limite = body.limite || 10;
+  let limite = req.query.limite || 10;
     limite = Number(limite);  
 
   try {
-    let usuarios = await Usuario.find({'usuarios.company': body.company}).skip(desde).limit(limite);  
+    let usuarios = await Usuario.find({'company': company}).skip(desde).limit(limite);  
     res.json({
       ok: true,
       usuarios
@@ -69,15 +70,16 @@ router.get('/idcompany',async(req, res)=>{
   }
 });
 
-router.get('/idUser',async(req, res)=>{
+router.get('/get/:idcompany/:idUser',async(req, res)=>{
   let body = req.body;
-  let id = body.idUser;
-  
+  let id = req.params.idUser;
+  let company = req.params.idcompany;
+
   try {
-    let Usuarios = await Usuario.findById({_id: id }).populate({path: 'company'}).populate({path: 'permisos'});
+    let usuario = await Usuario.find({_id: id ,company });
     res.json({
       ok: true,
-      usuario: Usuarios
+      usuario
     });
   } catch (e) {
     res.status(500).json(e);
@@ -85,11 +87,12 @@ router.get('/idUser',async(req, res)=>{
 });
 
 
-router.delete('/idUser',async(req, res)=>{
+router.delete('/delete/:idcompany/:idUser',async(req, res)=>{
   let body = req.body;
-  let id = body.idUser;
+  let id = req.params.idUser;
+  let company = req.params.idcompany;
   try {
-    let Usuarios = await Usuario.findOneAndDelete({_id: id });  
+    let Usuarios = await Usuario.findOneAndDelete({_id: id, company});
     res.json({
       ok: true,
       usuario: Usuarios,
@@ -100,10 +103,10 @@ router.delete('/idUser',async(req, res)=>{
   }
 });
 
-router.put('/idcompany/idUser/permisos',async(req, res)=>{
+router.put('/permisos/:idcompany/:idUser/',async(req, res)=>{
   let body = req.body;
-  let id = body.idUser;
-  let company =  body.idcompany;
+  let id = req.params.idUser;
+  let company =  req.params.idcompany;
   let idpermisos =  body.permisos;
   
   try {
@@ -120,10 +123,10 @@ router.put('/idcompany/idUser/permisos',async(req, res)=>{
 
 });
 
-router.put('/idcompany/idUser',async(req, res)=>{
+router.put('/put/:idcompany/:idUser',async(req, res)=>{
   let body = req.body;
-  let id = body.idUser;
-  let company =  body.idcompany;
+  let id = req.params.idUser;
+  let company =  req.params.idcompany;
   
   const hashPassword = await bcrypt.hash(body.datos.password, 10);
   
@@ -137,7 +140,7 @@ router.put('/idcompany/idUser',async(req, res)=>{
       },
     });
 
-    let Usuarios = await Usuario.findOneAndUpdate({_id: id},{$set:{datos: usuario.datos}});
+    let Usuarios = await Usuario.findOneAndUpdate({_id: id, company},{$set:{datos: usuario.datos}});
     
     res.json({
       ok: true,

@@ -4,7 +4,7 @@ const {inpc} = require('../models/SchemaInpc');
 const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
-router.post('/idcompany',[
+router.post('/post/:idcompany',[
     check('year').isLength({ min: 2 })]
     ,async(req, res)=>{
 
@@ -14,7 +14,7 @@ router.post('/idcompany',[
     }
         
     let body = req.body;
-    let idcompany = body.idcompany;
+    let idcompany = req.params.idcompany;
    
     try {
         let Inpc = new inpc({
@@ -37,12 +37,10 @@ router.post('/idcompany',[
         });
 
         let inpcdb = await Inpc.save();
-        //let company = await Company.updateOne({_id: idcompany}, {$push: {inpc: Inpc.id }});
         
         res.json({
             ok: true,
             inpc: inpcdb,
-            //company
           });
     } catch (e) {
         res.status(500).json(e);
@@ -50,7 +48,7 @@ router.post('/idcompany',[
 });
 
 
-router.put('/:idcompany/:idinpc',[
+router.put('/put/:idcompany/:idinpc',[
     check('year').isLength({ min: 2 })]
     ,async(req, res)=>{
 
@@ -60,8 +58,8 @@ router.put('/:idcompany/:idinpc',[
     }
         
     let body = req.body;
-    let id = body.idinpc;
-    let idcompany = body.idcompany;
+    let id = req.params.idinpc;
+    let company = req.params.idcompany;
    
     try {
         let Inpc = new inpc({
@@ -83,7 +81,7 @@ router.put('/:idcompany/:idinpc',[
             _id: id    
         });
 
-        let inpcdb = await inpc.findByIdAndUpdate(id,Inpc);
+        let inpcdb = await inpc.findOneAndUpdate({_id: id, company},Inpc);
         
         res.json({
             ok: true,
@@ -97,13 +95,12 @@ router.put('/:idcompany/:idinpc',[
 
 
 
-router.get('/idcompany/idinpc',async(req, res)=>{
-    let body =  req.body;
-    let id = body.idinpc;
-    let idcompany = body.idcompany;
+router.get('/get/:idcompany/:idinpc',async(req, res)=>{
+    let id = req.params.idinpc;
+    let company = req.params.idcompany;
 
     try {
-        let Inpc = await inpc.findById(id);
+        let Inpc = await inpc.findOne({_id: id, company});
         res.json({
             ok: true,
             inpc: Inpc
@@ -114,17 +111,17 @@ router.get('/idcompany/idinpc',async(req, res)=>{
 });
 
 
-router.get('/idcompany',async(req, res)=>{
-    let body =  req.body;
+router.get('/get/:idcompany',async(req, res)=>{
+    let company = req.params.idcompany;
 
-    let desde = body.desde || 0;
+    let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = body.limite || 10;
+    let limite = req.query.limite || 10;
     limite = Number(limite);
 
     try {
-        let Inpc = await inpc.find({'company': body.idcompany}).skip(desde).limit(limite);
+        let Inpc = await inpc.find({'company': company}).skip(desde).limit(limite);
         res.json({
             ok: true,
             Inpc
@@ -135,13 +132,12 @@ router.get('/idcompany',async(req, res)=>{
 });
 
 
-router.delete('/idcompany/idinpc',async(req, res)=>{
-    let body = req.body;
-    let id = body.idinpc;
-    let idcompany = body.idcompany;
+router.delete('/delete/:idcompany/:idinpc',async(req, res)=>{
+    let id = req.params.idinpc;
+    let company = req.params.idcompany;
 
     try {
-        let Inpc = await inpc.findByIdAndDelete(id);
+        let Inpc = await inpc.findOneAndDelete({_id: id, company});
         res.json({
             ok: true,
             inpc: Inpc,

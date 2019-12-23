@@ -5,37 +5,31 @@ const {Company} = require('../models/SchemaCompany');
 const {Usuario} = require('../models/SchemaUsuarios');
 const { check, validationResult } = require('express-validator');
 
-router.post('/idcompany',async(req, res)=>{
+router.post('/post/:idcompany',async(req, res)=>{
 
     let body = req.body;
-    let idcompany = body.idcompany;
+    let company = req.params.idcompany;
     
     try {
-        
         let Permiso = new Permisos({
             nombre: body.nombre,
             permisos: body.permisos,
-            company: idcompany
+            company
         });
-
         let permisosDB = await Permiso.save();
-       // let company = await Company.updateOne({_id: idcompany}, {$push: {permisos: Permiso.id }});
-
         res.json({
             ok: true,
             Permiso: permisosDB,
-            //company
         });
     } catch (e) {
         res.status(500).json(e);
     }
 });
 
-router.put('/idcompany/idrole',async(req, res)=>{
-
+router.put('/put/:idcompany/:idrole',async(req, res)=>{
     let body = req.body;
-    let id = body.idrole;
-    let idcompany = body.idcompany;
+    let id = req.params.idrole;
+    let company = req.params.idcompany;
     
     try {
 
@@ -45,7 +39,7 @@ router.put('/idcompany/idrole',async(req, res)=>{
             _id: id,
         });
 
-        let permisosDB = await Permisos.findByIdAndUpdate({_id: id}, Permiso);
+        let permisosDB = await Permisos.findOneAndUpdate({_id: id, company}, Permiso);
 
         res.json({
             ok: true,
@@ -57,13 +51,12 @@ router.put('/idcompany/idrole',async(req, res)=>{
     }
 });
 
-router.get('/idcompany/idrole',async(req, res)=>{
-    let body = req.body;
-    let id = body.idrole;
-    let idcompany = body.idcompany;
+router.get('/get/:idcompany/:idrole',async(req, res)=>{
+    let id = req.params.idrole;
+    let company = req.params.idcompany;
 
     try {
-        let permisos = await Permisos.findById(id);
+        let permisos = await Permisos.findOne({_id: id, company});
         res.json({
             ok: true,
             permisos,
@@ -73,16 +66,16 @@ router.get('/idcompany/idrole',async(req, res)=>{
     }
 });
 
-router.get('/idcompany',async(req, res)=>{
-    let body = req.body;
+router.get('/get/:idcompany',async(req, res)=>{
+    let company = req.params.idcompany;
 
-    let desde = body.desde || 0;
+    let desde = req.query.desde || 0;
     desde = Number(desde);
 
-    let limite = body.limite || 10;
+    let limite = req.query.limite || 10;
     limite = Number(limite);
     try {
-        let roles = await Permisos.find({'company': body.idcompany}).skip(desde).limit(limite);
+        let roles = await Permisos.find({company}).skip(desde).limit(limite);
         res.json({
         ok: true,
         roles
@@ -93,13 +86,12 @@ router.get('/idcompany',async(req, res)=>{
 }); 
 
 
-router.delete('/idrole',async(req, res)=>{
-    let body = req.body;
-    let id = body.idrole;
-    let idcompany = body.idcompany;
+router.delete('/delete/:idcompany/:idrole',async(req, res)=>{
+    let id = req.params.idrole;
+    let company = req.params.idcompany;
 
     try {
-        let permisos = await Permisos.findByIdAndDelete(id);
+        let permisos = await Permisos.findOneAndDelete({_id: id, company});
         res.json({
             ok: true,
             permisos,
