@@ -36,12 +36,12 @@ const {verificarLogin} = require('../middlewares/autenticacion');
       });
       
       let usuarioDB = await usuario.save();  
-      let company = await Company.updateOne({_id: id}, {$push: {usuarios: usuario.id }});
+      //let company = await Company.updateOne({_id: id}, {$push: {usuarios: usuario.id }});
 
         res.json({
           ok: true,
           usuario: usuarioDB,
-          company
+          //company
         });
     } catch (e) {
       res.status(500).json(e);
@@ -51,11 +51,18 @@ const {verificarLogin} = require('../middlewares/autenticacion');
 
 router.get('/idcompany',async(req, res)=>{
   let body = req.body;
+  
+  let desde = body.desde || 0;
+    desde = Number(desde);
+
+  let limite = body.limite || 10;
+    limite = Number(limite);  
+
   try {
-    let company = await Company.find({_id : body.idcompany}).populate({path:'usuarios'});  
+    let usuarios = await Usuario.find({'usuarios.company': body.company}).skip(desde).limit(limite);  
     res.json({
       ok: true,
-      usuario: company
+      usuarios
     });
   } catch (e) {
     res.status(500).json(e);

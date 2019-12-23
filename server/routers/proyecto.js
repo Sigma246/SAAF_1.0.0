@@ -18,20 +18,22 @@ router.post('/idempresa',[
 
     let body = req.body;
     let idempresa = body.idempresa;
+    let idcompany = body.idcompany;
 
     try {
         let proyectoDB = new Proyectos({
             clave: body.clave,
             nombre: body.nombre,
             importe: body.importe,
-            empresa: idempresa
+            empresa: idempresa,
+            company: idcompany
         });
         let proyecto = await proyectoDB.save();
-        let empresa = await Empresa.updateOne({_id: idempresa}, {$push: {proyectos: proyecto.id }});   
+       // let empresa = await Empresa.updateOne({_id: idempresa}, {$push: {proyectos: proyecto.id }});   
         res.json({
             ok: true,
             proyecto,
-            empresa
+            //empresa
         });     
     } catch (e) {
         res.status(500).json(e);
@@ -77,12 +79,18 @@ router.put('/idempresa/idproyecto',[
 
 router.get('/idempresa',async(req, res)=>{
     let body = req.body;
-    let id = body.idempresa;
+
+    let desde = body.desde || 0;
+    desde = Number(desde);
+
+    let limite = body.limite || 10;
+    limite = Number(limite);
+
     try {
-      let empresa = await Empresa.findById(id).populate({path:'proyectos'});
+      let proyectos = await Proyectos.find({'empresa': body.idempresa, 'company': body.idcompany}).skip(desde).limit(limite);
       res.json({
         ok: true,
-        empresa
+        proyectos
       });
     } catch (e) {
       res.status(500).json(e);

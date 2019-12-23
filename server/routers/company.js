@@ -52,7 +52,7 @@ router.get('/idCompany',async(req, res)=>{
     let body = req.body;
     let id = body.idCompany;
     try {
-        let company = await Company.findById({_id: id }).populate({ path:'empresa' }).populate({ path:'usuarios' });
+        let company = await Company.findById({_id: id });
         res.json({
         ok: true,
         company
@@ -67,11 +67,11 @@ router.put('/idCompany',async(req, res)=>{
     let id = body.idCompany;
     let empresa = await Empresa.find().where('_id').in(body.empresa);
     try {
-        let companydb = new Company({
-            nombre: body.nombre,
-            nombre_corto: body.nombre_corto,
-        });
-      let company = await Company.findByIdAndUpdate(id,{$set:{companydb}});  
+      let company = await Company.findByIdAndUpdate(id,{$set:{
+        'nombre': body.nombre, 
+        'nombre_corto': body.nombre_corto, 
+        'estado': body.estado
+      }});
       res.json({
         ok: true,
         message: "Compañia Actualizada",

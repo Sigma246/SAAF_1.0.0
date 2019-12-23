@@ -23,12 +23,12 @@ router.post('/idcompany',[
             company: id
         });
         let empresaDB = await empresa.save();  
-        let company = await Company.updateOne({_id: id}, {$push: {empresa: empresa.id }});
+        //let company = await Company.updateOne({_id: id}, {$push: {empresa: empresa.id }});
 
         res.json({
           ok: true,
           empresa: empresaDB,
-          company
+          //company
         });
     } catch (e) {
         res.status(500).json(e);
@@ -38,12 +38,18 @@ router.post('/idcompany',[
 
 router.get('/idcompany',async(req, res)=>{
   let body = req.body;
-  let id = body.idcompany;
+
+  let desde = body.desde || 0;
+  desde = Number(desde);
+
+  let limite = body.limite || 10;
+  limite = Number(limite);
+
     try {
-      let company = await Company.find({_id:id}).populate({path: 'empresa'});  
+      let empresa = await Empresa.find({'company': body.idcompany}).skip(desde).limit(limite);
       res.json({
         ok: true,
-        company
+        empresa
       });
     } catch (e) {
       res.status(500).json(e);
@@ -68,13 +74,12 @@ router.put('/idEmpresa',async(req, res)=>{
   let body = req.body;  
   let id = body.idEmpresa;
     
-    try {
-        let empresadb = new Empresa({
-            _id: id,
-            nombre: body.nombre,
-            nombre_corto: body.nombre_corto
-        });
-      let empresa = await Empresa.findByIdAndUpdate(id, empresadb);  
+    try {  
+      let empresa = await Empresa.findByIdAndUpdate(id,{$set:{
+        'nombre':body.nombre, 
+        'nombre_corto':body.nombre_corto, 
+        'estado':body.estado
+      }});  
       res.json({
         ok: true,
         message: "Empresa Actualizada",

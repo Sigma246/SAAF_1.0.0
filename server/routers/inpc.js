@@ -37,12 +37,12 @@ router.post('/idcompany',[
         });
 
         let inpcdb = await Inpc.save();
-        let company = await Company.updateOne({_id: idcompany}, {$push: {inpc: Inpc.id }});
+        //let company = await Company.updateOne({_id: idcompany}, {$push: {inpc: Inpc.id }});
         
         res.json({
             ok: true,
             inpc: inpcdb,
-            company
+            //company
           });
     } catch (e) {
         res.status(500).json(e);
@@ -116,13 +116,18 @@ router.get('/idcompany/idinpc',async(req, res)=>{
 
 router.get('/idcompany',async(req, res)=>{
     let body =  req.body;
-    let id = body.idcompany;
+
+    let desde = body.desde || 0;
+    desde = Number(desde);
+
+    let limite = body.limite || 10;
+    limite = Number(limite);
 
     try {
-        let company = await Company.findById(id).populate({path:'inpc'});
+        let Inpc = await inpc.find({'company': body.idcompany}).skip(desde).limit(limite);
         res.json({
             ok: true,
-            company
+            Inpc
         });
     } catch (e) {
         res.status(500).json(e);

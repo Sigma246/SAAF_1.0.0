@@ -27,12 +27,12 @@ router.post('/idcompany',[
         });
 
         let tipodecambio = await tdc.save();
-        let company = await Company.updateOne({_id: idcompany}, {$push: {tdc: tdc.id }});
+        //let company = await Company.updateOne({_id: idcompany}, {$push: {tdc: tdc.id }});
         
         res.json({
             ok: true,
             tipodecambio,
-            company
+            //company
           });
     } catch (e) {
         res.status(500).json(e);
@@ -92,12 +92,18 @@ router.get('/idcompany/idtdc',async(req, res)=>{
 
 router.get('/idcompany',async(req, res)=>{
     let body =  req.body;
-    let id = body.idcompany;
+    
+    let desde = body.desde || 0;
+    desde = Number(desde);
+
+    let limite = body.limite || 10;
+    limite = Number(limite);  
+
     try {
-        let company = await Company.findById({_id: id }).populate({ path:'tdc' });
+        let tipo_de_cambio = await Tdc.find({'company': body.idcompany}).skip(desde).limit(limite);
         res.json({
         ok: true,
-        company
+        tdc: tipo_de_cambio
         });
     } catch (e) {
         res.status(500).json(e);

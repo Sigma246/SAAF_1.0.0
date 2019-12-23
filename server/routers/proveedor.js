@@ -17,7 +17,6 @@ router.post('/idempresa',[
     }
 
     let body = req.body;
-    let idempresa = body.idempresa;
 
     try {
         let proveedordb = new Proveedores({
@@ -26,14 +25,15 @@ router.post('/idempresa',[
             email: body.email,
             telefono: body.telefono,
             rfc: body.rfc,
-            empresa: idempresa,
+            empresa: body.idempresa,
+            company: body.idcompany
         });
         let proveedor = await proveedordb.save();
-        let empresa = await Empresa.updateOne({_id: idempresa}, {$push: {proveedor: proveedor.id }});   
+        //let empresa = await Empresa.updateOne({_id: body.idempresa}, {$push: {proveedor: proveedor.id }});   
         res.json({
             ok: true,
             proveedor,
-            empresa
+            //empresa
         });     
     } catch (e) {
         res.status(500).json(e);
@@ -79,12 +79,18 @@ router.put('/idempresa/idproveedor',[
 
 router.get('/idempresa',async(req, res)=>{
     let body = req.body;
-    let id = body.idempresa;
+
+    let desde = body.desde || 0;
+    desde = Number(desde);
+
+    let limite = body.limite || 10;
+    limite = Number(limite);
+
     try {
-      let empresa = await Empresa.findById(id).populate({path:'proveedor'});
+      let proveedores = await Proveedores.find({'company': body.idcompany, 'empresa': body.idempresa}).skip(desde).limit(limite);
       res.json({
         ok: true,
-        empresa
+        proveedores
       });
     } catch (e) {
       res.status(500).json(e);

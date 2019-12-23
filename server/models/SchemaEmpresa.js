@@ -30,7 +30,7 @@ const EmpresaDB = new Schema({
         ref: "Company",
         require: true
     },
-    proveedor:[{
+   /*  proveedor:[{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Proveedores",
         require: true,
@@ -39,7 +39,7 @@ const EmpresaDB = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Proyectos",
         require: true,
-    }],
+    }], */
 });
 
 EmpresaDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' })

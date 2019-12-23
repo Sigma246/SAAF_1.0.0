@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const {Empresa} = require('./SchemaEmpresa');
+const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const ProyectosDB = new Schema({
@@ -25,6 +26,11 @@ const ProyectosDB = new Schema({
     empresa:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Empresa",
+        require: true
+    },
+    company:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Company",
         require: true
     },
     fecha: {type:Date, default:Date.now},

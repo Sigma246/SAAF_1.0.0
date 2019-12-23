@@ -19,12 +19,12 @@ router.post('/idcompany',async(req, res)=>{
         });
 
         let permisosDB = await Permiso.save();
-        let company = await Company.updateOne({_id: idcompany}, {$push: {permisos: Permiso.id }});
+       // let company = await Company.updateOne({_id: idcompany}, {$push: {permisos: Permiso.id }});
 
         res.json({
             ok: true,
             Permiso: permisosDB,
-            company
+            //company
         });
     } catch (e) {
         res.status(500).json(e);
@@ -75,12 +75,17 @@ router.get('/idcompany/idrole',async(req, res)=>{
 
 router.get('/idcompany',async(req, res)=>{
     let body = req.body;
-    let id = body.idcompany;
+
+    let desde = body.desde || 0;
+    desde = Number(desde);
+
+    let limite = body.limite || 10;
+    limite = Number(limite);
     try {
-        let company = await Company.findById({_id: id }).populate({ path:'permisos' });
+        let roles = await Permisos.find({'company': body.idcompany}).skip(desde).limit(limite);
         res.json({
         ok: true,
-        company
+        roles
         });
     } catch (e) {
         res.status(500).json(e);

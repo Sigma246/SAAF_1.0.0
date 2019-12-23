@@ -27,7 +27,7 @@ const CompanyDB = new Schema({
         type: Boolean,
         default: true
     },
-    empresa:[{
+    /* empresa:[{
         type: mongoose.Schema.Types.ObjectId, 
         ref: "Empresa",
         require: true,
@@ -54,7 +54,7 @@ const CompanyDB = new Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: "inpc",
         require: true,
-    }]
+    }] */
 });
 
 CompanyDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' })
