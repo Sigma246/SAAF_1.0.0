@@ -114,6 +114,11 @@ router.get('/get/:idcompany/:idinpc',async(req, res)=>{
 router.get('/get/:idcompany',async(req, res)=>{
     let company = req.params.idcompany;
 
+    let year = req.query.shearch_year;
+
+    let filtro = req.query.filtro_year || -1;
+    filtro = Number(filtro);
+
     let desde = req.query.desde || 0;
     desde = Number(desde);
 
@@ -121,7 +126,12 @@ router.get('/get/:idcompany',async(req, res)=>{
     limite = Number(limite);
 
     try {
-        let Inpc = await inpc.find({'company': company}).skip(desde).limit(limite);
+        let Inpc;
+        if (typeof year == 'undefined') {
+            Inpc = await inpc.find({'company': company},).sort({'year':filtro}).skip(desde).limit(limite);    
+        } else {
+            Inpc = await inpc.find({'company': company, year},).sort({'year':filtro}).skip(desde).limit(limite);    
+        }
         res.json({
             ok: true,
             Inpc

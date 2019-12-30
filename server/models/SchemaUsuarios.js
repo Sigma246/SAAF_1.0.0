@@ -71,6 +71,12 @@ UsuariosDB.methods.tokenJWT = function(){
     },process.env.NODE_FIRM_data);
 };
 
+UsuariosDB.index({
+    'datos.nombre':1,
+    'datos.apellido':1,
+    'datos.email':1
+})
+
 const Usuario = mongoose.model('Usuarios', UsuariosDB);
 
 module.exports ={

@@ -22,7 +22,6 @@ const InpcSchema = new Schema({
     year: {
         type: Number,
         required: true,
-        lowercase: true,
         trim: true,
     },
     meses: {

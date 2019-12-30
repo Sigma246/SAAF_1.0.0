@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const {verificarLogin} = require('../middlewares/autenticacion');
 
-  router.post('post/:idcompany',[
+  router.post('/post/:idcompany',[
     check('datos.email').isEmail(),
     check('datos.password').isLength({ min: 4 })
   ],async(req, res) => {
@@ -50,8 +50,17 @@ const {verificarLogin} = require('../middlewares/autenticacion');
  
 
 router.get('/get/:idcompany',async(req, res)=>{
-  let body = req.body;
+  let search = req.query.search;
   let company = req.params.idcompany;
+
+  let orderby_name = req.query.orderby_name ;
+  orderby_name = Number(orderby_name);
+
+  let orderby_apellido = req.query.orderby_apellido;
+  orderby_apellido = Number(orderby_apellido);
+
+  let orderby_email = req.query.orderby_email;
+  orderby_email = Number(orderby_email);
 
   let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -60,7 +69,15 @@ router.get('/get/:idcompany',async(req, res)=>{
     limite = Number(limite);  
 
   try {
-    let usuarios = await Usuario.find({'company': company}).skip(desde).limit(limite);  
+    let usuarios = await Usuario.find({'company': company}).or([
+      {'datos.nombre':{$regex: search}},
+      {'datos.apellido':{$regex: search}},
+      {'datos.email':{$regex: search}}
+    ]).sort({
+      'datos.nombre': orderby_name,
+      'datos.apellido': orderby_apellido,
+      'datos.email': orderby_email
+    }).skip(desde).limit(limite);
     res.json({
       ok: true,
       usuarios

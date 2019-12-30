@@ -8,8 +8,7 @@ const RolesDB = new Schema({
     nombre:{
         type: String,
         require: true,
-        lowercase: true,
-        trim: true
+        trim: true,
     },
     permisos:{
         type: Array,

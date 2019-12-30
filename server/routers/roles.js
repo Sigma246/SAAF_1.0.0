@@ -68,6 +68,10 @@ router.get('/get/:idcompany/:idrole',async(req, res)=>{
 
 router.get('/get/:idcompany',async(req, res)=>{
     let company = req.params.idcompany;
+    let search = req.query.search;
+
+    let orderby_nombre = req.query.orderby_nombre || 1;
+    orderby_nombre = Number(orderby_nombre);
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -75,7 +79,10 @@ router.get('/get/:idcompany',async(req, res)=>{
     let limite = req.query.limite || 10;
     limite = Number(limite);
     try {
-        let roles = await Permisos.find({company}).skip(desde).limit(limite);
+        let roles = await Permisos.find({
+            company,
+            "nombre" : { $regex: search, $options: 'i' }
+        }).sort({'nombre':orderby_nombre}).skip(desde).limit(limite);
         res.json({
         ok: true,
         roles
