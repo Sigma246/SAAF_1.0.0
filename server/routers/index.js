@@ -10,6 +10,7 @@ app.use('/tiposdecambio', require('./tiposdecambio'));
 app.use('/inpc', require('./inpc'));
 app.use('/proveedor', require('./proveedor'));
 app.use('/proyecto', require('./proyecto'));
-app.use('/catalogo/:idcompany/:idempresa', require('./catalogo'));
+app.use('/catalogo', require('./catalogo'));
+app.use('/ubicacion', require('./ubicacion'));
 
 module.exports = app;
