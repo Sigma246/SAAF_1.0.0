@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Empresa} = require('../models/SchemaEmpresa');
 const {Company} = require('../models/SchemaCompany');
+const {Ubicacion} = require('../models/SchemaUbicacion');
 const { check, validationResult } = require('express-validator');
 
 router.post('/:idcompany',[
@@ -23,13 +24,22 @@ router.post('/:idcompany',[
             company
         });
         let empresaDB = await empresa.save();  
-        //let company = await Company.updateOne({_id: id}, {$push: {empresa: empresa.id }});
+       
 
         res.json({
           ok: true,
           empresa: empresaDB,
-          //company
         });
+
+        //Alta de documento en empresa
+        let ubicacion = new Ubicacion({
+          nombre: empresaDB._id,
+          company,
+          empresa: empresaDB._id,
+          childs: []
+        });
+        let ubicacion_ = await ubicacion.save();
+
     } catch (e) {
         res.status(500).json(e);
     }

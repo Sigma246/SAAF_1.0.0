@@ -4,25 +4,31 @@ const {Empresa} = require('./SchemaEmpresa');
 const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
+var Childs = new Schema();
 
-const UbicacionDB = new Schema({
+Childs.add({
     nombre: {
         type: String,
-        required: true
+        //required: true
     },
-    parent: {
+    fecha: {type:Date, default:Date.now},
+    estado:{type: Boolean, default: true},
+    childs  : [Childs]
+});
+
+
+const UbicacionDB = new Schema({
+   
+    nombre: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Ubicacion"
+        ref: "Empresa"
     },
-    childs: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Ubicacion"
-    }],
+    childs: [Childs],
     company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Company"
     },
-    subcompany: {
+    empresa: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Empresa"
     },
@@ -36,5 +42,6 @@ UbicacionDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 const Ubicacion = mongoose.model('Ubicacion', UbicacionDB);
 
 module.exports ={
-    Ubicacion
+    Ubicacion,
+    
 }
