@@ -7,13 +7,13 @@ const uniqueValidator = require('mongoose-unique-validator');
 var Childs = new Schema();
 
 Childs.add({
-    nombre: {
+    name: {
         type: String,
         //required: true
     },
     fecha: {type:Date, default:Date.now},
     estado:{type: Boolean, default: true},
-    childs  : [Childs]
+    children  : [Childs]
 });
 
 
@@ -23,7 +23,7 @@ const UbicacionDB = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Empresa"
     },
-    childs: [Childs],
+    children: [Childs],
     company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Company"

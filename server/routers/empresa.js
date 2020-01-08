@@ -36,7 +36,7 @@ router.post('/:idcompany',[
           nombre: empresaDB._id,
           company,
           empresa: empresaDB._id,
-          childs: []
+          children: []
         });
         let ubicacion_ = await ubicacion.save();
 
