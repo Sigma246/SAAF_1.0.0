@@ -13,5 +13,6 @@ app.use('/proyecto', require('./proyecto'));
 app.use('/catalogo', require('./catalogo'));
 app.use('/ubicacion', require('./ubicacion'));
 app.use('/centrodecostos', require('./centrodecostos'));
+app.use('/depreciacion', require('./depreciacion'));
 
 module.exports = app;
