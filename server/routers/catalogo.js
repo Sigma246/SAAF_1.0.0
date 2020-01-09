@@ -74,7 +74,7 @@ router.get('/get/:idcompany/:idempresa/',async(req, res)=>{
         ]).sort({
             'nombre': order_by_name,
             'estado': order_by_status,
-        }).skip(desde).limit(limite);;
+        }).skip(desde).limit(limite);
         res.json({
             ok: true,
             catalogos

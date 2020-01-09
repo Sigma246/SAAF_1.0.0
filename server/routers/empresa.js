@@ -3,6 +3,7 @@ const router = express.Router();
 const {Empresa} = require('../models/SchemaEmpresa');
 const {Company} = require('../models/SchemaCompany');
 const {Ubicacion} = require('../models/SchemaUbicacion');
+const {camempleados} = require('../models/SchemaCamposEmpleados');
 const { check, validationResult } = require('express-validator');
 
 router.post('/:idcompany',[
@@ -31,7 +32,7 @@ router.post('/:idcompany',[
           empresa: empresaDB,
         });
 
-        //Alta de documento en empresa
+        //Crea Directorio de ubicacion para empresa
         let ubicacion = new Ubicacion({
           nombre: empresaDB._id,
           company,
@@ -39,6 +40,32 @@ router.post('/:idcompany',[
           children: []
         });
         let ubicacion_ = await ubicacion.save();
+
+        //Genera Campos default para captura de empleados
+        let campos_default = [
+          {
+            nombre:"clave",
+            company,
+            empresa: empresaDB._id
+          },
+          {
+            nombre:"nombre",
+            company,
+            empresa: empresaDB._id
+          },
+          {
+            nombre:"apellido",
+            company,
+            empresa: empresaDB._id
+          },
+          {
+            nombre:"puesto",
+            company,
+            empresa: empresaDB._id
+          },
+        ]
+        let CamposEmpleados = await camempleados.insertMany(campos_default)
+
 
     } catch (e) {
         res.status(500).json(e);

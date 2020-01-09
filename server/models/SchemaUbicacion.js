@@ -4,7 +4,7 @@ const {Empresa} = require('./SchemaEmpresa');
 const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
-var Childs = new Schema();
+const Childs = new Schema();
 
 Childs.add({
     name: {
