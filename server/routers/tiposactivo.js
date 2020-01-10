@@ -133,6 +133,9 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     let order_by_descripcion =  req.query.order_by_descripcion;
     order_by_descripcion = Number(order_by_descripcion);
 
+    let order_by_cuentacontable =  req.query.order_by_cuentacontable;
+    order_by_cuentacontable = Number(order_by_cuentacontable);
+
     let order_by_status =  req.query.order_by_status;
     order_by_status = Number(order_by_status);
 
@@ -147,11 +150,11 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             {'clave':{$regex: search}},
             {'nombre':{$regex: search}},
             {'descripcion':{$regex: search}}
-
         ]).sort({
             'clave': order_by_clave,
             'nombre': order_by_nombre,
             'descripcion': order_by_descripcion,
+            'cuentacontable.nombre': order_by_cuentacontable,
             'estado': order_by_status,
         }).skip(desde).limit(limite).populate([
             {path: 'cuentacontable', select: 'nombre'},
