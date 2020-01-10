@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const {Empresa} = require('./SchemaEmpresa');
 const {Company} = require('./SchemaCompany');
+const {cuentascontables} = require('../models/SchemaCuentasContables')
 const uniqueValidator = require('mongoose-unique-validator');
 
 const ElementoDB = new Schema({
@@ -19,19 +20,38 @@ const ElementoDB = new Schema({
     fecha: {type:Date, default:Date.now},
     estado:{type: Boolean, default: true},
 });
-  
-const CatalogoDB = new Schema({
-    nombre: {
+
+const TiposActivoDB = new Schema({
+
+    clave:{
         type: String,
         require: true,
+        trim: true,
+    },
+    nombre:{
+        type: String,
+        require: true,
+        trim: true,
         lowercase: true,
-        trim: true,
     },
-    clave: {
+    cuentacontable:{
+        type: Schema.Types.ObjectId,
+        ref: "cuentascontables"
+    },
+    descripcion:{
         type: String,
-        require: true,
         trim: true,
+        lowercase: true,
     },
+    deprefinanciera:{
+        type: Schema.Types.ObjectId,
+        ref: "Depreciacion"
+    },
+    deprefiscal:{
+        type: Schema.Types.ObjectId,
+        ref: "Depreciacion"
+    },
+    elementos: [ElementoDB],
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company"
@@ -40,15 +60,14 @@ const CatalogoDB = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Empresa"
     },
-    elementos: [ElementoDB],
     fecha: {type:Date, default:Date.now},
     estado:{type: Boolean, default: true},
+
 });
 
-
-CatalogoDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
-const Catalogo = mongoose.model('Catalogo', CatalogoDB);
+TiposActivoDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
+const tiposactivo = mongoose.model('tiposactivo', TiposActivoDB);
 
 module.exports ={
-    Catalogo
+    tiposactivo
 }

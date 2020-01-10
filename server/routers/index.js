@@ -16,5 +16,6 @@ app.use('/centrodecostos', require('./centrodecostos'));
 app.use('/depreciacion', require('./depreciacion'));
 app.use('/camposempleados', require('./camposempleados'));
 app.use('/empleados', require('./empleados'));
-
+app.use('/cuentascontables', require('./cuentascontables'));
+app.use('/tiposactivo', require('./tiposactivo'));
 module.exports = app;
