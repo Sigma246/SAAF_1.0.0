@@ -5,34 +5,37 @@ const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const ProveedoresDB =  new Schema({
-    clave:{
-        type: String,
-        require: true,
-        trim: true,
-        unique: true
-    },
-    nombre:{
-        type: String,
-        require: true,
-        lowercase: true,
-        trim: true,
-    },
-    email:{
-        type: String,
-        require: true,
-        lowercase: true,
-        trim: true,
-    },
-    telefono:{
-        type: Number,
-        require: true,
-        lowercase: true,
-        trim: true,
-    },
-    rfc:{
-        type: String,
-        lowercase: true,
-        trim: true,
+    datos:{
+        clave:{
+            type: String,
+            require: true,
+            trim: true,
+        },
+        nombre:{
+            type: String,
+            require: true,
+            lowercase: true,
+            trim: true,
+        },
+        email:{
+            type: String,
+            require: true,
+            lowercase: true,
+            trim: true,
+        },
+        telefono:{
+            type: Number,
+            require: true,
+            lowercase: true,
+            trim: true,
+        },
+        rfc:{
+            type: String,
+            lowercase: true,
+            trim: true,
+        },
+        fecha: {type:Date, default:Date.now},
+        estado:{type: Boolean, default: true},
     },
     empresa:{
         type: mongoose.Schema.Types.ObjectId,
@@ -43,9 +46,7 @@ const ProveedoresDB =  new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Company",
         require: true
-    },
-    fecha: {type:Date, default:Date.now},
-    estado:{type: Boolean, default: true},
+    }
 });
 
 

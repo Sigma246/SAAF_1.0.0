@@ -23,29 +23,33 @@ const ElementoDB = new Schema({
 
 
 const CuentasContablesDB = new Schema({
-    clave:{
-        type: String,
-        require: true,
-        trim: true,
-    },
-    nombre:{
-        type: String,
-        require: true,
-        trim: true,
-        lowercase: true,
-    },
-    descripcion:{
-        type: String,
-        trim: true,
-        lowercase: true,
-    },
-    deprefinanciera:{
-        type: Schema.Types.ObjectId,
-        ref: "Depreciacion"
-    },
-    deprefiscal:{
-        type: Schema.Types.ObjectId,
-        ref: "Depreciacion"
+    datos:{
+        clave:{
+            type: String,
+            require: true,
+            trim: true,
+        },
+        nombre:{
+            type: String,
+            require: true,
+            trim: true,
+            lowercase: true,
+        },
+        descripcion:{
+            type: String,
+            trim: true,
+            lowercase: true,
+        },
+        deprefinanciera:{
+            type: Schema.Types.ObjectId,
+            ref: "Depreciacion"
+        },
+        deprefiscal:{
+            type: Schema.Types.ObjectId,
+            ref: "Depreciacion"
+        },
+        fecha: {type:Date, default:Date.now},
+        estado:{type: Boolean, default: true},
     },
     elementos: [ElementoDB],
     company: {
@@ -55,9 +59,7 @@ const CuentasContablesDB = new Schema({
     empresa: {
         type: Schema.Types.ObjectId,
         ref: "Empresa"
-    },
-    fecha: {type:Date, default:Date.now},
-    estado:{type: Boolean, default: true},
+    }
 
 });
 
