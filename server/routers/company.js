@@ -71,7 +71,7 @@ router.put('/:idCompany',async(req, res)=>{
         'nombre': body.nombre, 
         'nombre_corto': body.nombre_corto, 
         'estado': body.estado
-      }});
+      }},{new: true});
       res.json({
         ok: true,
         message: "Compañia Actualizada",
