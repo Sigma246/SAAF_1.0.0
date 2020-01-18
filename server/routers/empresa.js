@@ -4,6 +4,7 @@ const {Empresa} = require('../models/SchemaEmpresa');
 const {Company} = require('../models/SchemaCompany');
 const {Ubicacion} = require('../models/SchemaUbicacion');
 const {camempleados} = require('../models/SchemaCamposEmpleados');
+const {Catalogo} = require('../models/SchemaCatalogos');
 const { check, validationResult } = require('express-validator');
 
 router.post('/:idcompany',[
@@ -41,32 +42,86 @@ router.post('/:idcompany',[
         });
         let ubicacion_ = await ubicacion.save();
 
-        //Genera Campos default para captura de empleados
+        //Crea Campos default para captura de empleados
         let campos_default = [
-          {
-            nombre:"clave",
-            company,
-            empresa: empresaDB._id
-          },
-          {
-            nombre:"nombre",
-            company,
-            empresa: empresaDB._id
-          },
-          {
-            nombre:"apellido",
-            company,
-            empresa: empresaDB._id
-          },
-          {
-            nombre:"puesto",
-            company,
-            empresa: empresaDB._id
-          },
+          {nombre:"clave",company,empresa: empresaDB._id},
+          {nombre:"nombre",company,empresa: empresaDB._id},
+          {nombre:"apellido",company,empresa: empresaDB._id},
+          {nombre:"puesto",company,empresa: empresaDB._id},
         ]
         let CamposEmpleados = await camempleados.insertMany(campos_default)
 
-
+        // Crea Campos default para Catalogos
+        let Catalogos =[
+          {
+            nombre: "Aseguradora",clave: "Aseguradora",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "ZURICH",valor: "Zurich Seguros"}
+            ]
+          },
+          {
+            nombre: "Estado Físico",clave: "Estado Físico",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "EXCELENT",valor: "Excelente"},
+              {clave: "GOOD",valor: "Bueno"},
+              {clave: "MEDIUM",valor: "Regular"},
+              {clave: "BAD",valor: "Malo"}
+            ]
+          },
+          {
+            nombre: "Motívo de baja",clave: "Motívo de baja",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "SELL",valor: "Venta"},
+              {clave: "DAMANGE",valor: "Daño"}
+            ]
+          },
+          {
+            nombre: "Estatus",clave: "Estatus",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "DEPRECIATING",valor: "Depreciandose"},
+              {clave: "NOT_DEPRECIATIONG",valor: "No Depreciandose"},
+              {clave: "IN_CONSTRUCTION",valor: "En construcción"}
+            ]
+          },
+          {
+            nombre: "Moneda",clave: "Moneda",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "MXN",valor: "Pesos mexicanos"},
+              {clave: "USD",valor: "Dolares estadounidenses"},
+              {clave: "EUR",valor: "Euros"}
+            ]
+          },
+          {
+            nombre: "Condición de compra",clave: "Condición de compra",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "NEW",valor: "Nuevo"},
+              {clave: "USED",valor: "Usado"}
+            ]
+          },
+          {
+            nombre: "País",clave: "País",
+            company,
+            empresa: empresaDB._id,
+            elementos:[
+              {clave: "MEX",valor: "México"},
+              {clave: "USA",valor: "Estados Unidos de América"}
+            ]
+          },
+        ]
+        let DocumentoCatalogos = await Catalogo.insertMany(Catalogos);
+        
     } catch (e) {
         res.status(500).json(e);
     }
