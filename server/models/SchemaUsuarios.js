@@ -54,6 +54,15 @@ const UsuariosDB = new Schema({
     
 });
 
+
+UsuariosDB.methods.toJSON = function(){
+
+    let user = this;
+    let userObject = user.toObject();
+    delete userObject.datos.password;
+    return userObject;
+};
+
 UsuariosDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 
 UsuariosDB.methods.loginJWT = function(){

@@ -32,8 +32,8 @@ const DepreciacionDB = new Schema({
     criterio:{
         type: String,
         require: true,
-        enum : ['Fecha de aplicación', 'Mes siguiente', " "],
-        default: 'Fecha de aplicación'
+        enum : ['fecha de aplicación', 'mes siguiente', " "],
+        default: 'fecha de aplicación'
     },
     maximocatidad:{
         type: Number,
