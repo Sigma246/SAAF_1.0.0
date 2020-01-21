@@ -65,6 +65,7 @@ router.put('/put/:idcompany/:idinpc',[
         let Inpc = new inpc({
             year: body.year,
             meses:{
+                _id: body.meses._id,
                 1: body.meses.enero,
                 2: body.meses.febrero,
                 3: body.meses.marzo,
@@ -133,7 +134,7 @@ router.get('/get/:idcompany',async(req, res)=>{
             Inpc = await inpc.find({'company': company, year},).sort({'year':filtro}).skip(desde).limit(limite);    
         }
 
-        let tota_document = await inpc.count({company});
+        let tota_document = await inpc.countDocuments({company});
 
         res.json({
             ok: true,

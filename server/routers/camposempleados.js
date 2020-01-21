@@ -103,7 +103,7 @@ router.get('/post/:idcompany/:idempresa',async(req, res)=>{
             'estado': order_by_status,
         }).skip(desde).limit(limite);
 
-        let tota_document = await camempleados.count({company, empresa});
+        let tota_document = await camempleados.countDocuments({company, empresa});
 
         res.json({
             ok: true,

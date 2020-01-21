@@ -90,7 +90,7 @@ router.get('/get/:idcompany',async(req, res)=>{
             'estado':orderby_estado
         }).skip(desde).limit(limite);
 
-        let tota_document = await Permisos.count({company});        
+        let tota_document = await Permisos.countDocuments({company});        
 
         res.json({
             ok: true,

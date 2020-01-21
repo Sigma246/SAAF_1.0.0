@@ -102,7 +102,7 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'descripcion': orderby_descripcion
           }).skip(desde).limit(limite);
 
-          let tota_document = await centrodecostos.count({company, empresa});
+          let tota_document = await centrodecostos.countDocuments({company, empresa});
 
         res.json({
             ok: true,

@@ -79,7 +79,7 @@ router.get('/get/:idcompany',async(req, res)=>{
       'datos.email': orderby_email
     }).skip(desde).limit(limite);
 
-    let tota_document = await Usuario.count({company});
+    let tota_document = await Usuario.countDocuments({company});
 
     res.json({
       ok: true,

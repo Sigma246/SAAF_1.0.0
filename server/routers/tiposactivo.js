@@ -162,7 +162,7 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             {path: 'deprefiscal', select: 'nombre'}
         ]);
 
-        let tota_document = await tiposactivo.count({company, empresa});
+        let tota_document = await tiposactivo.countDocuments({company, empresa});
 
         res.json({
             ok: true,

@@ -102,7 +102,7 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'datos.puesto': order_by_puesto
         }).skip(desde).limit(limite);
 
-        let tota_document = await empleados.count({company, empresa});
+        let tota_document = await empleados.countDocuments({company, empresa});
 
         res.json({
             ok: true,

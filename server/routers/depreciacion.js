@@ -126,7 +126,7 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'estado': order_by_status,
         }).skip(desde).limit(limite);
 
-        let tota_document = await Depreciacion.count({company, empresa});
+        let tota_document = await Depreciacion.countDocuments({company, empresa});
 
         res.json({
             ok: true,
