@@ -93,18 +93,44 @@ router.get('/get/:idcompany/:idtdc',async(req, res)=>{
 router.get('/get/:idcompany',async(req, res)=>{
     let body =  req.body;
     let idcompany = req.params.idcompany
+    let search = req.query.search;
+
+    let order_by_origen = req.query.order_by_origen;
+    order_by_origen = Number(order_by_origen);
+
+    let order_by_destino = req.query.order_by_destino;
+    order_by_destino = Number(order_by_destino);
+
+    let order_by_fecha = req.query.order_by_fecha;
+    order_by_fecha = Number(order_by_fecha);
+
+    let order_by_valor = req.query.order_by_valor;
+    order_by_valor = Number(order_by_valor);
+
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
 
     let limite = req.query.limite || 10;
     limite = Number(limite);  
-
+    
     try {
-        let tipo_de_cambio = await Tdc.find({'company': idcompany}).skip(desde).limit(limite);
+        let tipo_de_cambio = await Tdc.find({'company': idcompany}).or([
+            {'moneda_o':{$regex: search}},
+            {'moneda_d':{$regex: search}},
+        ]).sort({
+            'moneda_o': order_by_origen,
+            'moneda_d': order_by_destino,
+            'fecha': order_by_fecha,
+            'valor': order_by_valor,
+        }).skip(desde).limit(limite);
+
+        let tota_document = await Tdc.count({'company': idcompany});
+
         res.json({
-        ok: true,
-        tdc: tipo_de_cambio
+            ok: true,
+            tdc: tipo_de_cambio,
+            tota_document
         });
     } catch (e) {
         res.status(500).json(e);

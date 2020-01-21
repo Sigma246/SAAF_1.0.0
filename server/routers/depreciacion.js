@@ -124,10 +124,14 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
         ]).sort({
             'nombre': order_by_name,
             'estado': order_by_status,
-        }).skip(desde).limit(limite);;
+        }).skip(desde).limit(limite);
+
+        let tota_document = await Depreciacion.count({company, empresa});
+
         res.json({
             ok: true,
-            depreciacion
+            depreciacion,
+            tota_document
         });  
     } catch (e) {
         res.status(500).json(e);

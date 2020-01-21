@@ -78,9 +78,13 @@ router.get('/get/:idcompany',async(req, res)=>{
       'datos.apellido': orderby_apellido,
       'datos.email': orderby_email
     }).skip(desde).limit(limite);
+
+    let tota_document = await Usuario.count({company});
+
     res.json({
       ok: true,
-      usuarios
+      usuarios,
+      tota_document
     });
   } catch (e) {
     res.status(500).json(e);

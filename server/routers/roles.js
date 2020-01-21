@@ -70,8 +70,11 @@ router.get('/get/:idcompany',async(req, res)=>{
     let company = req.params.idcompany;
     let search = req.query.search;
 
-    let orderby_nombre = req.query.orderby_nombre || 1;
+    let orderby_nombre = req.query.orderby_nombre;
     orderby_nombre = Number(orderby_nombre);
+
+    let orderby_estado = req.query.orderby_estado;
+    orderby_estado = Number(orderby_estado);
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -82,10 +85,17 @@ router.get('/get/:idcompany',async(req, res)=>{
         let roles = await Permisos.find({
             company,
             "nombre" : { $regex: search, $options: 'i' }
-        }).sort({'nombre':orderby_nombre}).skip(desde).limit(limite);
+        }).sort({
+            'nombre':orderby_nombre,
+            'estado':orderby_estado
+        }).skip(desde).limit(limite);
+
+        let tota_document = await Permisos.count({company});        
+
         res.json({
-        ok: true,
-        roles
+            ok: true,
+            roles,
+            tota_document
         });
     } catch (e) {
         res.status(500).json(e);

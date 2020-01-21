@@ -75,9 +75,13 @@ router.get('/get/:idcompany/:idempresa/',async(req, res)=>{
             'nombre': order_by_name,
             'estado': order_by_status,
         }).skip(desde).limit(limite);
+
+        let tota_document = await Catalogo.count({company, empresa});
+
         res.json({
             ok: true,
-            catalogos
+            catalogos,
+            tota_document
         });  
     } catch (e) {
         res.status(500).json(e);

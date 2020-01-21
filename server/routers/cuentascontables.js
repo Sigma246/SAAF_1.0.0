@@ -153,9 +153,15 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'datos.descripcion': order_by_descripcion,
             'datos.estado': order_by_status,
         }).skip(desde).limit(limite);
+
+        //valuar documentos con la porpierdad datos existente para el conteo
+        let where = { datos: {$exists: true, $not: {$size: 0}} };
+        let tota_document = await cuentascontables.count({company, empresa}).where(where);
+
         res.json({
             ok: true,
-            cuentacontable
+            cuentacontable,
+            tota_document
         })
     } catch (e) {
         res.status(500).json(e);

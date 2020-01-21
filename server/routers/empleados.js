@@ -101,9 +101,13 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'datos.apellido': order_by_apellido,
             'datos.puesto': order_by_puesto
         }).skip(desde).limit(limite);
+
+        let tota_document = await empleados.count({company, empresa});
+
         res.json({
             ok: true,
-            empleado
+            empleado,
+            tota_document
         });
     } catch (e) {
         res.status(500).json(e);

@@ -101,10 +101,14 @@ router.get('/post/:idcompany/:idempresa',async(req, res)=>{
         ]).sort({
             'nombre': order_by_name,
             'estado': order_by_status,
-        }).skip(desde).limit(limite);;
+        }).skip(desde).limit(limite);
+
+        let tota_document = await camempleados.count({company, empresa});
+
         res.json({
             ok: true,
-            campoempleado
+            campoempleado,
+            tota_document
         });
     } catch (e) {
         res.status(500).json(e);

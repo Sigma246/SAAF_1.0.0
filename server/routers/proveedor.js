@@ -113,9 +113,15 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'datos.rfc': orderby_rfc,
             'datos.estado': orderby_estado,
         }).skip(desde).limit(limite);
+
+        //valuar documentos con la porpierdad datos existente para el conteo
+        let where = { datos: {$exists: true, $not: {$size: 0}} };
+        let tota_document = await Proveedores.count({company, empresa}).where(where);
+
         res.json({
             ok: true,
-            proveedores
+            proveedores,
+            tota_document
         });
     } catch (e) {
       res.status(500).json(e);

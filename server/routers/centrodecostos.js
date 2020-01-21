@@ -101,9 +101,13 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'nombre': orderby_nombre,
             'descripcion': orderby_descripcion
           }).skip(desde).limit(limite);
+
+          let tota_document = await centrodecostos.count({company, empresa});
+
         res.json({
             ok: true,
             Centrodecostos,
+            tota_document
         })
     } catch (e) {
         res.status(500).json(e);

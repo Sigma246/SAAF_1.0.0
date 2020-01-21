@@ -161,9 +161,13 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             {path: 'deprefinanciera', select: 'nombre'},
             {path: 'deprefiscal', select: 'nombre'}
         ]);
+
+        let tota_document = await tiposactivo.count({company, empresa});
+
         res.json({
             ok: true,
-            tipoactivo
+            tipoactivo,
+            tota_document
         })
     } catch (e) {
         res.status(500).json(e);

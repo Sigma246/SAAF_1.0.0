@@ -82,6 +82,19 @@ router.put('/put/:idcompany/:idempresa/:idproyecto',[
 router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     let company = req.params.idcompany;
     let empresa = req.params.idempresa;
+    let search = req.query.search;
+
+    let order_by_clave = req.query.order_by_clave;
+    order_by_clave = Number(order_by_clave);
+
+    let order_by_nombre = req.query.order_by_nombre;
+    order_by_nombre = Number(order_by_nombre);
+
+    let order_by_importe = req.query.order_by_importe;
+    order_by_importe = Number(order_by_importe);
+
+    let order_by_estado = req.query.order_by_estado;
+    order_by_estado = Number(order_by_estado);
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -90,13 +103,26 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     limite = Number(limite);
 
     try {
-      let proyectos = await Proyectos.find({'empresa': empresa, 'company': company}).skip(desde).limit(limite);
-      res.json({
-        ok: true,
-        proyectos
-      });
+      let proyectos = await Proyectos.find({'empresa': empresa, 'company': company}).or([
+        {'clave':{$regex: search}},
+        {'nombre':{$regex: search}},
+    
+        ]).sort({
+            'clave': order_by_clave,
+            'nombre': order_by_nombre,
+            'importe': order_by_importe,
+            'estado': order_by_estado,
+        }).skip(desde).limit(limite);
+
+        let tota_document = await Proyectos.count({company, empresa});
+
+        res.json({
+            ok: true,
+            proyectos,
+            tota_document
+        });
     } catch (e) {
-      res.status(500).json(e);
+        res.status(500).json(e);
     }
 });
 

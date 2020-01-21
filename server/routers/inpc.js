@@ -132,9 +132,13 @@ router.get('/get/:idcompany',async(req, res)=>{
         } else {
             Inpc = await inpc.find({'company': company, year},).sort({'year':filtro}).skip(desde).limit(limite);    
         }
+
+        let tota_document = await inpc.count({company});
+
         res.json({
             ok: true,
-            Inpc
+            Inpc,
+            tota_document
         });
     } catch (e) {
         res.status(500).json(e);
