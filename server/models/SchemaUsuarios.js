@@ -68,7 +68,8 @@ UsuariosDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 UsuariosDB.methods.loginJWT = function(){
     return jwt.sign({ 
         _id: this.id,
-        name: this.datos.nombre,
+        nombre: this.datos.nombre,
+        apellido: this.datos.apellido,
         email: this.datos.email,
         permisos: this.permisos
     },process.env.NODE_FIRM_SAaf);
