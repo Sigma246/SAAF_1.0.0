@@ -71,7 +71,8 @@ UsuariosDB.methods.loginJWT = function(){
         nombre: this.datos.nombre,
         apellido: this.datos.apellido,
         email: this.datos.email,
-        permisos: this.permisos
+        permisos: this.permisos,
+        company: this.company
     },process.env.NODE_FIRM_SAaf);
 };
 

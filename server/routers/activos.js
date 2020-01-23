@@ -2,9 +2,16 @@ const express = require('express');
 const router = express.Router();
 const {activos} = require('../models/SchemaActivos');
 const { check, validationResult } = require('express-validator');
-var qr = require('qr-image');
+const qr = require('qr-image');
+/* 
+var fs = require('fs');
+var mongoose = require("mongoose");
+var Grid = require('gridfs-stream');
+//var db = new mongo.Db('MongoDB', new mongo.Server(mongoose));
 
-
+//var gfs = Grid(mongoose.connection.db, mongoose.mongo); 
+var gfs = Grid(db, mongoose);
+ */
 
 router.post('/post/:idcompany/:idempresa',[
     check('nombre').isLength({ min: 2 }),
@@ -34,16 +41,42 @@ router.post('/post/:idcompany/:idempresa',[
             company,
             empresa
         });
+        
         //let activo = await activosdb.save();
-        var qr_svg = qr.image('I love QR!', { type: 'svg' });
-        qr_svg.pipe(require('fs').createWriteStream('i_love_qr.svg'));
+
+       
+        // streaming to gridfs
+        var writestream = gfs.createWriteStream({
+            filename: 'my_file.txt'
+        });
+        fs.createReadStream('/some/path').pipe(writestream);
+         
+        // streaming from gridfs
+        var readstream = gfs.createReadStream({
+          filename: 'my_file.txt'
+        });
+         
+        //error handling, e.g. file does not exist
+        /* readstream.on('error', function (err) {
+          console.log('An error occurred!', err);
+          throw err;
+        });
+         
+        readstream.pipe(response);
+ */
+
+       /*  var qr_png = qr.image('I love QR!', { type: 'png' });
+        qr_png.pipe(require('fs').createWriteStream('i_love_qr.png'));
  
-        var svg_string = qr.imageSync('I love QR!', { type: 'svg' });
+        var png_string = qr.imageSync('I love QR!', { type: 'png' }); */
+        
         res.json({
             ok: true,
            // activo
-           svg_string
+           //file
         });
+    
+
     } catch (e) {
         res.status(500).json(e);
     }
