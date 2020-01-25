@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany/:idempresa',[
     check('nombre').isLength({ min: 2 }),
+    check('rol').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -19,6 +20,7 @@ router.post('/post/:idcompany/:idempresa',[
     try {
         let campo_empleado = new camempleados({
             nombre: body.nombre,
+            rol: body.rol,
             company,
             empresa
         });
@@ -35,6 +37,7 @@ router.post('/post/:idcompany/:idempresa',[
 
 router.put('/post/:idcompany/:idempresa/:idcampo',[
     check('nombre').isLength({ min: 2 }),
+    check('rol').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -49,7 +52,7 @@ router.put('/post/:idcompany/:idempresa/:idcampo',[
     
     try {
 
-        let campoempleado = await camempleados.findByIdAndUpdate({_id: id, company, empresa},{$set:{'nombre':body.nombre,'estado':body.estado}});
+        let campoempleado = await camempleados.findByIdAndUpdate({_id: id, company, empresa},{$set:{'nombre':body.nombre,'estado':body.estado,'rol':body.rol}});
         res.json({
             ok: true,
             campoempleado

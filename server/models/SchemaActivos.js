@@ -58,32 +58,28 @@ const NotasDB = new Schema({
 const ActivosDB = new Schema({
     numero: {
         type: String, 
-        required: false,
-        trim: true,
-        lowercase: true,
+        required: true,
+        trim: true
     },
     numeroserie: {
         type: String, 
         required: false,
-        trim: true,
-        lowercase: true,
+        trim: true
     },
     nombre: {
         type: String, 
-        required: false,
-        trim: true,
+        required: true,
+        trim: true
     },
     modelo: {
         type: String, 
         required: false,
-        trim: true,
-        lowercase: true,
+        trim: true
     },
     marca: {
         type: String, 
         required: false,
-        trim: true,
-        lowercase: true,
+        trim: true
     },
     estadofisico: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -113,6 +109,7 @@ const ActivosDB = new Schema({
     precio: {
         type: Number,
         trim: true,
+        required: true
     },
     moneda: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -205,8 +202,8 @@ const ActivosDB = new Schema({
         type: Boolean,
         default: false
     },
-    qrurl: { type: String },
-    barurl: { type: String }
+    qrcode: { data: Buffer, contentType: String },
+    barcode: { data: Buffer, contentType: String },
 },{ 
     strict: false,
     timestamps: true 

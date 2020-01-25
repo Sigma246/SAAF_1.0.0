@@ -13,6 +13,12 @@ const CamEmpleados = new Schema({
         lowercase: true,
         trim: true,
     },
+    rol:{
+        type: String,
+        require: true,
+        lowercase: true,
+        trim: true,
+    },
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company"
