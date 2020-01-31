@@ -7,17 +7,21 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const CamEmpleados = new Schema({
 
-    nombre:{
-        type: String,
-        require: true,
-        lowercase: true,
-        trim: true,
-    },
-    rol:{
-        type: String,
-        require: true,
-        lowercase: true,
-        trim: true,
+    datos:{
+        nombre:{
+            type: String,
+            require: true,
+            lowercase: true,
+            trim: true,
+        },
+        rol:{
+            type: String,
+            require: true,
+            lowercase: true,
+            trim: true,
+            default: 'amdin',
+        },
+        estado:{type: Boolean, default: true},
     },
     company: {
         type: Schema.Types.ObjectId,
@@ -27,10 +31,8 @@ const CamEmpleados = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Empresa"
     },
-    fecha: {type:Date, default:Date.now},
-    estado:{type: Boolean, default: true},
-
-});
+    
+},{timestamps: true});
 
 CamEmpleados.plugin(uniqueValidator, { message: '{PATH} debe de ser único' });
 const camempleados = mongoose.model('camempleados', CamEmpleados);

@@ -4,8 +4,8 @@ const {camempleados} = require('../models/SchemaCamposEmpleados');
 const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany/:idempresa',[
-    check('nombre').isLength({ min: 2 }),
-    check('rol').isLength({ min: 2 }),
+    check('datos.nombre').isLength({ min: 2 }),
+    check('datos.rol').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -19,8 +19,10 @@ router.post('/post/:idcompany/:idempresa',[
 
     try {
         let campo_empleado = new camempleados({
-            nombre: body.nombre,
-            rol: body.rol,
+            datos:{
+                nombre: body.datos.nombre,
+                rol: body.datos.rol,
+            },
             company,
             empresa
         });
@@ -35,9 +37,9 @@ router.post('/post/:idcompany/:idempresa',[
 
 });
 
-router.put('/post/:idcompany/:idempresa/:idcampo',[
-    check('nombre').isLength({ min: 2 }),
-    check('rol').isLength({ min: 2 }),
+router.put('/put/:idcompany/:idempresa/:idcampo',[
+    check('datos.nombre').isLength({ min: 2 }),
+    check('datos.rol').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -52,7 +54,10 @@ router.put('/post/:idcompany/:idempresa/:idcampo',[
     
     try {
 
-        let campoempleado = await camempleados.findByIdAndUpdate({_id: id, company, empresa},{$set:{'nombre':body.nombre,'estado':body.estado,'rol':body.rol}});
+        let campoempleado = await camempleados.findByIdAndUpdate({_id: id, company, empresa},{$set:{
+            'datos.nombre':body.datos.nombre,
+            'datos.estado':body.datos.estado,
+            'datos.rol':body.datos.rol}});
         res.json({
             ok: true,
             campoempleado
@@ -62,7 +67,7 @@ router.put('/post/:idcompany/:idempresa/:idcampo',[
     }
 });
 
-router.get('/post/:idcompany/:idempresa/:idcampo',async(req, res)=>{
+router.get('/get/:idcompany/:idempresa/:idcampo',async(req, res)=>{
     
     let id = req.params.idcampo;
     let company = req.params.idcompany;
@@ -80,7 +85,7 @@ router.get('/post/:idcompany/:idempresa/:idcampo',async(req, res)=>{
 });
 
 
-router.get('/post/:idcompany/:idempresa',async(req, res)=>{
+router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     
     let company = req.params.idcompany;
     let empresa = req.params.idempresa;
@@ -100,10 +105,10 @@ router.get('/post/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let campoempleado = await camempleados.find({company, empresa}).or([
-            {'nombre':{$regex: search}}
+            {'datos.nombre':{$regex: search}}
         ]).sort({
-            'nombre': order_by_name,
-            'estado': order_by_status,
+            'datos.nombre': order_by_name,
+            'datos.estado': order_by_status,
         }).skip(desde).limit(limite);
 
         let tota_document = await camempleados.countDocuments({company, empresa});

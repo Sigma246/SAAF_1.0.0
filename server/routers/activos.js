@@ -6,7 +6,7 @@ const fs = require('fs');
 const qr = require('qr-image');
 const bwipjs = require('bwip-js');
 
-    
+//router.use(fileUpload());
 
 router.post('/post/:idcompany/:idempresa',[
     check('nombre').isLength({ min: 2 }),
@@ -22,6 +22,7 @@ router.post('/post/:idcompany/:idempresa',[
     let empresa = req.params.idempresa;
     let barcode = body.numero;
     let qrcode;
+    let samplefile = req.files.archivo;
     
     let options = ({
         bcid:        'code128',       // Barcode type
@@ -44,15 +45,16 @@ router.post('/post/:idcompany/:idempresa',[
         });
     }
 
-    let  base64data;
-        fs.readFile('server/files/_love_bar.png', function(err, data) {
-             base64data = new Buffer(data).toString('base64');
-            console.log(base64data);
-         });
-
     barcode = await bwipAsync(options);
-    console.log(barcode);
+    barcode = new Buffer(barcode).toString('base64');
+
     try {
+
+        samplefile.mv('server/files/', (e)=>{
+            if (e)
+            return res.status(500).json(e);
+        });
+
         let activosdb = new activos({
             numero: body.numero,
             numeroserie: body.numeroserie,
@@ -66,19 +68,23 @@ router.post('/post/:idcompany/:idempresa',[
             text: body.text,
             notas: body.notas,
             barcode: {
-                data: base64data,
+                data: barcode,
+                contentType:"image/png"
             },
-            qrcode: "",
+            qrcode:{
+                data: qrcode,
+                contentType:"image/png"
+            },
             company,
             empresa
         });
-           
         
-         let activo = await activosdb.save();
-       /*  qrcode = qr.imageSync(`${activo._id}`, { type: 'png' });
-        console.log("holaaa")
-        console.log(qrcode);
-        */// let activocode = await activos.updateMany({_id: activo._id},{$set:{'qrcode': base64data}});
+        //let activo = await activosdb.save();
+        
+        qrcode = qr.imageSync(`http://localhost:3000/activos/put/${company}/${empresa}/${activo._id}`, { type: 'png' });
+        qrcode = new Buffer(qrcode).toString('base64');
+
+        //let activocode = await activos.updateOne({_id: activo._id},{$set:{'qrcode.data': qrcode}});
          
         res.json({
             ok: true,
@@ -92,7 +98,7 @@ router.post('/post/:idcompany/:idempresa',[
 });
 
 
-router.get('/imagen',async(req, res)=>{
+router.get('/get/imagen/:idimage',async(req, res)=>{
 
     let body = req.body;
     let company = req.params.idcompany;
@@ -101,7 +107,15 @@ router.get('/imagen',async(req, res)=>{
 
     try {
         
+      let activo = await activos.find({_id:image});
       
+        res.json({
+            ok: true,
+            activo
+        });
+
+        console.log(activo[0].qrcode);
+
 
     } catch (e) {
         res.status(500).json(e);    

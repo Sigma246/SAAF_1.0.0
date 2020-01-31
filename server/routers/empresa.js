@@ -45,10 +45,10 @@ router.post('/:idcompany',[
 
         //Crea Campos default para captura de empleados
         let campos_default = [
-          {nombre:"clave",company,empresa: empresaDB._id},
-          {nombre:"nombre",company,empresa: empresaDB._id},
-          {nombre:"apellido",company,empresa: empresaDB._id},
-          {nombre:"puesto",company,empresa: empresaDB._id},
+          {datos:{nombre:"clave"},company,empresa: empresaDB._id},
+          {datos:{nombre:"nombre"},company,empresa: empresaDB._id},
+          {datos:{nombre:"apellido"},company,empresa: empresaDB._id},
+          {datos:{nombre:"puesto"},company,empresa: empresaDB._id},
         ]
         let CamposEmpleados = await camempleados.insertMany(campos_default)
 
