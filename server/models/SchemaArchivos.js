@@ -7,17 +7,18 @@ const FileDB = new Schema({
         type: String, 
         required: true 
     },
-    originalnombre: { 
+    /* originalnombre: { 
         type: String, 
         required: true 
-    },
+    }, */
     url: { 
         type: String,
         required: true 
     },
     default: { 
         type: Boolean, 
-        required: true 
+        required: true, 
+        default: true
     }
 });
   

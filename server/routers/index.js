@@ -19,4 +19,5 @@ app.use('/empleados', require('./empleados'));
 app.use('/cuentascontables', require('./cuentascontables'));
 app.use('/tiposactivo', require('./tiposactivo'));
 app.use('/activos', require('./activos'));
+app.use('/archivos', require('./archivos'));
 module.exports = app;

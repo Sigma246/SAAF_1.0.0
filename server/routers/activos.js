@@ -6,7 +6,6 @@ const fs = require('fs');
 const qr = require('qr-image');
 const bwipjs = require('bwip-js');
 
-//router.use(fileUpload());
 
 router.post('/post/:idcompany/:idempresa',[
     check('nombre').isLength({ min: 2 }),
@@ -22,7 +21,19 @@ router.post('/post/:idcompany/:idempresa',[
     let empresa = req.params.idempresa;
     let barcode = body.numero;
     let qrcode;
-    let samplefile = req.files.archivo;
+
+    archivo.mv('/files/filename.png', function(err) {
+        if (err){
+            return res.status(500).json({
+                ok: false,
+                err
+            });
+        }
+        res.json({
+            ok: true,
+            message: 'Imagen subida correctamente'
+        });
+    });
     
     let options = ({
         bcid:        'code128',       // Barcode type
@@ -46,14 +57,9 @@ router.post('/post/:idcompany/:idempresa',[
     }
 
     barcode = await bwipAsync(options);
-    barcode = new Buffer(barcode).toString('base64');
+    barcode = new Buffer.from(barcode).toString('base64');
 
     try {
-
-        samplefile.mv('server/files/', (e)=>{
-            if (e)
-            return res.status(500).json(e);
-        });
 
         let activosdb = new activos({
             numero: body.numero,
@@ -79,12 +85,12 @@ router.post('/post/:idcompany/:idempresa',[
             empresa
         });
         
-        //let activo = await activosdb.save();
+        let activo = await activosdb.save();
         
         qrcode = qr.imageSync(`http://localhost:3000/activos/put/${company}/${empresa}/${activo._id}`, { type: 'png' });
-        qrcode = new Buffer(qrcode).toString('base64');
+        qrcode = new Buffer.from(qrcode).toString('base64');
 
-        //let activocode = await activos.updateOne({_id: activo._id},{$set:{'qrcode.data': qrcode}});
+        let activocode = await activos.updateOne({_id: activo._id},{$set:{'qrcode.data': qrcode}});
          
         res.json({
             ok: true,
