@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const {activos} = require('../models/SchemaActivos');
 const { check, validationResult } = require('express-validator');
-const fs = require('fs');
+    //qr code
 const qr = require('qr-image');
+    //bar code
 const bwipjs = require('bwip-js');
-
+    
 
 router.post('/post/:idcompany/:idempresa',[
     check('nombre').isLength({ min: 2 }),
@@ -22,19 +23,7 @@ router.post('/post/:idcompany/:idempresa',[
     let barcode = body.numero;
     let qrcode;
 
-    archivo.mv('/files/filename.png', function(err) {
-        if (err){
-            return res.status(500).json({
-                ok: false,
-                err
-            });
-        }
-        res.json({
-            ok: true,
-            message: 'Imagen subida correctamente'
-        });
-    });
-    
+        //Opciones de barcode
     let options = ({
         bcid:        'code128',       // Barcode type
         text:        `${barcode}`,    // Text to encode
@@ -43,7 +32,7 @@ router.post('/post/:idcompany/:idempresa',[
         includetext: true,            // Show human-readable text
         textxalign:  'center',        // Always good to set this
     })
-    
+        //Creacion de barcode    
     function bwipAsync(options) {
         return new Promise((resolve, reject) => {
             bwipjs.toBuffer(options, (err, png) => {
@@ -54,8 +43,7 @@ router.post('/post/:idcompany/:idempresa',[
                 }
             });
         });
-    }
-
+    }   
     barcode = await bwipAsync(options);
     barcode = new Buffer.from(barcode).toString('base64');
 
@@ -73,6 +61,7 @@ router.post('/post/:idcompany/:idempresa',[
             pais: body.pais,
             text: body.text,
             notas: body.notas,
+            files: body.imagenes,
             barcode: {
                 data: barcode,
                 contentType:"image/png"
@@ -84,12 +73,14 @@ router.post('/post/:idcompany/:idempresa',[
             company,
             empresa
         });
-        
+            //guardado de activo y barcode
         let activo = await activosdb.save();
-        
+
+            //Creacion de qrcode
         qrcode = qr.imageSync(`http://localhost:3000/activos/put/${company}/${empresa}/${activo._id}`, { type: 'png' });
         qrcode = new Buffer.from(qrcode).toString('base64');
-
+         
+            //actualizacion de activo para guardar qrcode
         let activocode = await activos.updateOne({_id: activo._id},{$set:{'qrcode.data': qrcode}});
          
         res.json({

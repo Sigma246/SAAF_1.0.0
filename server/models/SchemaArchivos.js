@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const {Empresa} = require('./SchemaEmpresa');
+const {Company} = require('./SchemaCompany');
+const {activos} = require('./SchemaActivos');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const FileDB = new Schema({
@@ -7,10 +10,10 @@ const FileDB = new Schema({
         type: String, 
         required: true 
     },
-    /* originalnombre: { 
+    originalnombre: { 
         type: String, 
         required: true 
-    }, */
+    },
     url: { 
         type: String,
         required: true 
@@ -18,8 +21,8 @@ const FileDB = new Schema({
     default: { 
         type: Boolean, 
         required: true, 
-        default: true
-    }
+        default: false
+    },   
 });
   
 
