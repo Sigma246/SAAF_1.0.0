@@ -158,8 +158,8 @@ router.put('/put/:idcompany/:idUser',async(req, res)=>{
         apellido: body.datos.apellido,
         email: body.datos.email,
         password: hashPassword,
+        estado: body.datos.estado,
       },
-      estado: body.estado,
     });
 
     let Usuarios = await Usuario.findOneAndUpdate({_id: id, company},{$set:{datos: usuario.datos,estado:usuario.estado}});

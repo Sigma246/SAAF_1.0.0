@@ -34,10 +34,10 @@ const UsuariosDB = new Schema({
             require: true,
             trim: true,
         },
-    },
-    estado:{
-        type: Boolean,
-        default: true
+        estado:{
+            type: Boolean,
+            default: true
+        },
     },
     company:[{
         type: mongoose.Schema.Types.ObjectId, 
