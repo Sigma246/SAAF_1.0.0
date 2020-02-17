@@ -8,7 +8,7 @@ const Role = require('../helpers/roles');
 const autorize = require('../middlewares/role');
 const {verificarLogin} = require('../middlewares/autenticacion');
 
-router.post('/',[
+router.post('/',[verificarLogin,autorize([Role.companies_edit])],[
     check('nombre').isLength({ min: 4 }),
     check('nombre_corto').isLength({ min: 4 })
 ],async(req, res)=>{
@@ -166,7 +166,7 @@ router.get('/',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=
     }
   });
 
-router.get('/:idCompany',async(req, res)=>{
+router.get('/:idCompany',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=>{
     let body = req.body;
     let id = req.params.idCompany;
     try {
@@ -180,7 +180,7 @@ router.get('/:idCompany',async(req, res)=>{
     }
 }); 
 
-router.put('/:idCompany',async(req, res)=>{
+router.put('/:idCompany',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=>{
     let body = req.body;
     let id = req.params.idCompany;
     let empresa = await Empresa.find().where('_id').in(body.empresa);
@@ -201,7 +201,7 @@ router.put('/:idCompany',async(req, res)=>{
   });
 
 
-  router.delete('/:idCompany',async(req, res)=>{
+  router.delete('/:idCompany',[verificarLogin,autorize([Role.companies_edit])],async(req, res)=>{
     let body = req.body;
     let id = req.params.idCompany;
     try {
