@@ -8,8 +8,8 @@ const bcrypt = require('bcrypt');
 const {verificarLogin} = require('../middlewares/autenticacion');
 
   router.post('/post/:idcompany',[
-    check('datos.email').isEmail(),
-    check('datos.password').isLength({ min: 4 })
+    check('email').isEmail(),
+    check('password').isLength({ min: 4 })
   ],async(req, res) => {
 
     const errors = validationResult(req);
@@ -19,19 +19,17 @@ const {verificarLogin} = require('../middlewares/autenticacion');
 
     let body = req.body;
     let id = req.params.idcompany;
-    const hashPassword = await bcrypt.hash(body.datos.password, 10)
+    const hashPassword = await bcrypt.hash(body.password, 10)
     
     //let company = await Company.find().where('_id').in(body.company);
     
     try {
       
       let usuario = new Usuario({
-        datos:{
-          nombre: body.datos.nombre,
-          apellido: body.datos.apellido,
-          email: body.datos.email,
-          password: hashPassword
-        },
+        nombre: body.nombre,
+        apellido: body.apellido,
+        email: body.email,
+        password: hashPassword,
         company: id
       });
       
@@ -70,13 +68,13 @@ router.get('/get/:idcompany',async(req, res)=>{
 
   try {
     let usuarios = await Usuario.find({'company': company}).or([
-      {'datos.nombre':{$regex: search}},
-      {'datos.apellido':{$regex: search}},
-      {'datos.email':{$regex: search}}
+      {'nombre':{$regex: search}},
+      {'apellido':{$regex: search}},
+      {'email':{$regex: search}}
     ]).sort({
-      'datos.nombre': orderby_name,
-      'datos.apellido': orderby_apellido,
-      'datos.email': orderby_email
+      'nombre': orderby_name,
+      'apellido': orderby_apellido,
+      'email': orderby_email
     }).skip(desde).limit(limite);
 
     let tota_document = await Usuario.countDocuments({company});
@@ -149,20 +147,26 @@ router.put('/put/:idcompany/:idUser',async(req, res)=>{
   let id = req.params.idUser;
   let company =  req.params.idcompany;
   
-  const hashPassword = await bcrypt.hash(body.datos.password, 10);
+  const hashPassword = await bcrypt.hash(body.password, 10);
   
   try {
     let usuario = new Usuario({
-      datos:{
-        nombre: body.datos.nombre,
-        apellido: body.datos.apellido,
-        email: body.datos.email,
-        password: hashPassword,
-        estado: body.datos.estado,
-      },
+      
+      nombre: body.nombre,
+      apellido: body.apellido,
+      email: body.email,
+      password: hashPassword,
+      estado: body.estado,
+  
     });
 
-    let Usuarios = await Usuario.findOneAndUpdate({_id: id, company},{$set:{datos: usuario.datos,estado:usuario.estado}});
+    let Usuarios = await Usuario.findOneAndUpdate({_id: id, company},{$set:{
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      email: usuario.email,
+      password: usuario.password,
+      estado: usuario.estado
+    }});
     
     res.json({
       ok: true,
