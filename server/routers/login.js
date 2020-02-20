@@ -7,7 +7,15 @@ router.post('/', async(req, res)=>{
 
     let body = req.body;
     
-    let user = await Usuario.findOne({"email": body.email}).populate({path:'company', populate: { path:'empresa' } }).populate({path:'permisos'});   
+    let user = await Usuario.findOne({"email": body.email}).populate({
+        path: 'companies.permisos',
+        model: 'Permisos',
+        select: 'permisos'
+   }).populate({
+        path: 'companies.company',
+        model: 'Company'
+    });
+    console.log(user)
         if(!user) return res.status(400).json('USUARIO y contraseña incorrectos');
 
     const valipass = await bcrypt.compare(body.password, user.password);
