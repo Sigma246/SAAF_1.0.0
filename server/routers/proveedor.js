@@ -5,10 +5,10 @@ const {Empresa} = require('../models/SchemaEmpresa');
 const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany/:idempresa',[
-    check('datos.email').isEmail(),
-    check('datos.telefono').isLength({ min: 10 }),
-    check('datos.clave').isLength({ min: 2 }),
-    check('datos.nombre').isLength({ min: 2 }),
+    check('email').isEmail(),
+    check('telefono').isLength({ min: 10 }),
+    check('clave').isLength({ min: 2 }),
+    check('nombre').isLength({ min: 2 }),
   ],async(req, res)=>{
     
     const errors = validationResult(req);
@@ -22,13 +22,11 @@ router.post('/post/:idcompany/:idempresa',[
 
     try {
         let proveedordb = new Proveedores({
-            datos:{
-                clave: body.datos.clave,
-                nombre: body.datos.nombre,
-                email: body.datos.email,
-                telefono: body.datos.telefono,
-                rfc: body.datos.rfc,
-            },
+            clave: body.clave,
+            nombre: body.nombre,
+            email: body.email,
+            telefono: body.telefono,
+            rfc: body.rfc,
             company,
             empresa
         });
@@ -44,10 +42,10 @@ router.post('/post/:idcompany/:idempresa',[
 
 
 router.put('/put/:idcompany/:idempresa/:idproveedor',[
-    check('datos.email').isEmail(),
-    check('datos.telefono').isLength({ min: 10 }),
-    check('datos.clave').isLength({ min: 2 }),
-    check('datos.nombre').isLength({ min: 2 }),
+    check('email').isEmail(),
+    check('telefono').isLength({ min: 10 }),
+    check('clave').isLength({ min: 2 }),
+    check('nombre').isLength({ min: 2 }),
   ],async(req, res)=>{
     
     const errors = validationResult(req);
@@ -61,7 +59,14 @@ router.put('/put/:idcompany/:idempresa/:idproveedor',[
     let id = req.params.idproveedor;
 
     try {
-        let proveedor = await Proveedores.findOneAndUpdate({_id: id,company,empresa},{$set:{'datos':body.datos}});
+        let proveedor = await Proveedores.findOneAndUpdate({_id: id,company,empresa},{$set:{
+            clave: body.clave,
+            nombre: body.nombre,
+            email: body.email,
+            telefono: body.telefono,
+            rfc: body.rfc,
+            estado: body.estado
+        }});
         res.json({
             ok: true,
             proveedor
@@ -102,21 +107,20 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let proveedores = await Proveedores.find({'company': company, 'empresa': empresa}).or([
-            {'datos.clave':{$regex: search}},
-            {'datos.nombre':{$regex: search}},
-            {'datos.email':{$regex: search}}
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'email':{$regex: search}}
         ]).sort({
-            'datos.clave': orderby_clave,
-            'datos.nombre': orderby_nombre,
-            'datos.email': orderby_correo,
-            'datos.telefono': orderby_telefono,
-            'datos.rfc': orderby_rfc,
-            'datos.estado': orderby_estado,
+            'clave': orderby_clave,
+            'nombre': orderby_nombre,
+            'email': orderby_correo,
+            'telefono': orderby_telefono,
+            'rfc': orderby_rfc,
+            'estado': orderby_estado,
         }).skip(desde).limit(limite);
 
         //valuar documentos con la porpierdad datos existente para el conteo
-        let where = { datos: {$exists: true, $not: {$size: 0}} };
-        let tota_document = await Proveedores.countDocuments({company, empresa}).where(where);
+        let tota_document = await Proveedores.countDocuments({company, empresa});
 
         res.json({
             ok: true,

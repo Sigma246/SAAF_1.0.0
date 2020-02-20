@@ -17,13 +17,15 @@ router.post('/',[verificarLogin,autorize([Role.companies_edit])],[
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
+
     let body = req.body;
-    let empresa = await Empresa.find().where('_id').in(body.empresa);
+    let role_list= Object.keys(Role);
     try {
         let company = new Company({
             nombre: body.nombre,
             nombre_corto: body.nombre_corto,
-            empresa
+            role_list
+            //empresa
         });
         let companyDB = await company.save();  
 

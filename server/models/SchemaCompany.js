@@ -22,40 +22,12 @@ const CompanyDB = new Schema({
         lowercase: true,
         
     },
-    fecha: {type:Date, default:Date.now},
+    role_list:{},
     estado:{
         type: Boolean,
         default: true
     },
-    /* empresa:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Empresa",
-        require: true,
-        excludeIndexes: true
-    }],
-    usuarios:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Usuarios",
-        require: true,
-        excludeIndexes: true
-    }],
-    permisos:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Permisos",
-        require: true,
-    }],
-    tdc:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Tdc",
-        require: true,
-        excludeIndexes: true
-    }],
-    inpc:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "inpc",
-        require: true,
-    }] */
-});
+},{timestamps: true});
 
 CompanyDB.plugin(uniqueValidator, { message: '{PATH} debe de ser único' })
 const Company = mongoose.model('Company', CompanyDB);
