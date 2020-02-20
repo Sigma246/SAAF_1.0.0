@@ -11,12 +11,11 @@ router.post('/', async(req, res)=>{
         path: 'companies.permisos',
         model: 'Permisos',
         select: 'permisos'
-   }).populate({
+    }).populate({
         path: 'companies.company',
         model: 'Company'
     });
-    console.log(user)
-        if(!user) return res.status(400).json('USUARIO y contraseña incorrectos');
+    if(!user) return res.status(400).json('USUARIO y contraseña incorrectos');
 
     const valipass = await bcrypt.compare(body.password, user.password);
     if(!valipass) return res.status(400).json('usuario y CONTRASEÑA incorrectos');
