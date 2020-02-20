@@ -5,6 +5,30 @@ const {Permisos} = require('./SchemaRoles');
 const uniqueValidator = require('mongoose-unique-validator');
 const jwt = require('jsonwebtoken');
 
+const RoleCompany = new Schema({
+    company:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Company",
+        require: true,
+        excludeIndexes: true
+    },
+    permisos:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Permisos",
+        require: true,
+        excludeIndexes: true
+    },
+    created: {
+        type: Date,
+        default: new Date()
+    },
+    estado:{
+        type: Boolean,
+        default: true
+    },
+});
+
+
 const UsuariosDB = new Schema({
     nombre: {
         type: String,
@@ -27,30 +51,25 @@ const UsuariosDB = new Schema({
         lowercase: true,
         unique: true,
     },
-    fecha: {type:Date, default:Date.now},
     password:{
         type: String,
         require: true,
         trim: true,
     },
+    passwordDate: {
+        type: Date
+      },
     estado:{
         type: Boolean,
         default: true
     },
-    company:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Company",
-        require: true,
-        excludeIndexes: true
-    }],
-    permisos:[{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Permisos",
-        require: true,
-        excludeIndexes: true
-    }],
+    root: {
+        type: Boolean,
+        default: false
+    },
+    companies:[RoleCompany]
     
-});
+},{timestamps: true });
 
 
 UsuariosDB.methods.toJSON = function(){
@@ -69,14 +88,14 @@ UsuariosDB.methods.loginJWT = function(){
         nombre: this.nombre,
         apellido: this.apellido,
         email: this.email,
-        permisos: this.permisos,
-        company: this.company
+        companies: this.companies
+
     },process.env.NODE_FIRM_SAaf);
 };
 
 UsuariosDB.methods.tokenJWT = function(){
     return jwt.sign({
-        usuario: this.company
+        usuario: this.companies.company
     },process.env.NODE_FIRM_data);
 };
 

@@ -24,13 +24,18 @@ const {verificarLogin} = require('../middlewares/autenticacion');
     //let company = await Company.find().where('_id').in(body.company);
     
     try {
-      
+  
       let usuario = new Usuario({
         nombre: body.nombre,
         apellido: body.apellido,
         email: body.email,
         password: hashPassword,
-        company: id
+        passwordDate: body.passwordDate,
+        companies: [{
+          permisos: body.companies.permisos,
+          company: id
+        }]
+        
       });
       
       let usuarioDB = await usuario.save();  
