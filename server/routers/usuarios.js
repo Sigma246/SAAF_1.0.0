@@ -31,10 +31,10 @@ const {verificarLogin} = require('../middlewares/autenticacion');
         email: body.email,
         password: hashPassword,
         passwordDate: body.passwordDate,
-        companies: [{
-          permisos: body.companies.permisos,
-          company: id
-        }]
+          companies: [{
+            permisos: body.companies.permisos,
+            company: id
+          }]
         
       });
       
@@ -72,7 +72,7 @@ router.get('/get/:idcompany',async(req, res)=>{
     limite = Number(limite);  
 
   try {
-    let usuarios = await Usuario.find({'company': company}).or([
+    let usuarios = await Usuario.find({'companies.company': company}).or([
       {'nombre':{$regex: search}},
       {'apellido':{$regex: search}},
       {'email':{$regex: search}}
@@ -82,7 +82,7 @@ router.get('/get/:idcompany',async(req, res)=>{
       'email': orderby_email
     }).skip(desde).limit(limite);
 
-    let tota_document = await Usuario.countDocuments({company});
+    let tota_document = await Usuario.countDocuments({'companies.company': company});
 
     res.json({
       ok: true,
@@ -100,7 +100,7 @@ router.get('/get/:idcompany/:idUser',async(req, res)=>{
   let company = req.params.idcompany;
 
   try {
-    let usuario = await Usuario.find({_id: id ,company });
+    let usuario = await Usuario.find({_id: id, 'companies.company': company});
     res.json({
       ok: true,
       usuario
@@ -127,15 +127,29 @@ router.delete('/delete/:idcompany/:idUser',async(req, res)=>{
   }
 });
 
-router.put('/permisos/:idcompany/:idUser/',async(req, res)=>{
+router.put('/permisos/:idcompany/:idUser/:idcompanies',async(req, res)=>{
   let body = req.body;
   let id = req.params.idUser;
   let company =  req.params.idcompany;
-  let idpermisos =  body.permisos;
+  let idcompanies = req.params.idcompanies;
   
   try {
-    let usuario =  await Usuario.findById({_id: id}).populate({path:'permisos'});
-    let permisos = await Usuario.updateOne({_id: id}, {$set: {permisos: idpermisos }});
+    let usuario =  await Usuario.findById({_id: id}).populate({
+      path: 'companies.permisos',
+      model: 'Permisos',
+      select: 'permisos'
+    });
+    let companiesss ={
+      _id: idcompanies,
+      created: body.created,
+      estado: body.estado,
+      permisos: body.permisos,
+      company
+    }
+
+    let permisos = await Usuario.findOneAndUpdate({'companies._id': idcompanies}, {$set: {
+      companies: body.companies
+    }});
     res.json({
       ok: true,
       usuario,
@@ -156,21 +170,23 @@ router.put('/put/:idcompany/:idUser',async(req, res)=>{
   
   try {
     let usuario = new Usuario({
-      
       nombre: body.nombre,
       apellido: body.apellido,
       email: body.email,
       password: hashPassword,
+      passwordDate: body.passwordDate,
       estado: body.estado,
-  
+      root: body.root
     });
 
-    let Usuarios = await Usuario.findOneAndUpdate({_id: id, company},{$set:{
+    let Usuarios = await Usuario.findOneAndUpdate({_id: id, 'companies.company': company},{$set:{
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       email: usuario.email,
       password: usuario.password,
-      estado: usuario.estado
+      passwordDate: usuario.passwordDate,
+      estado: usuario.estado,
+      root: usuario.root
     }});
     
     res.json({
