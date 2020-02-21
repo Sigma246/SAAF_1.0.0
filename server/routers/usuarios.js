@@ -139,17 +139,17 @@ router.put('/permisos/:idcompany/:idUser/:idcompanies',async(req, res)=>{
       model: 'Permisos',
       select: 'permisos'
     });
-    let companiesss ={
-      _id: idcompanies,
-      created: body.created,
-      estado: body.estado,
-      permisos: body.permisos,
-      company
-    }
 
-    let permisos = await Usuario.findOneAndUpdate({'companies._id': idcompanies}, {$set: {
-      companies: body.companies
-    }});
+    usuario.companies.map(function(dato){
+      if(dato._id == idcompanies){
+        dato.estado = body.estado;
+        dato.created = body.created;
+        dato.permisos = body.permisos;
+      }
+      return dato;
+    });
+
+    let permisos = await Usuario.findOneAndUpdate({'companies._id': idcompanies}, {$set: {companies: usuario.companies}});
     res.json({
       ok: true,
       usuario,
@@ -158,7 +158,6 @@ router.put('/permisos/:idcompany/:idUser/:idcompanies',async(req, res)=>{
   } catch (e) {
     res.status(500).json(e);
   }
-
 });
 
 router.put('/put/:idcompany/:idUser',async(req, res)=>{
