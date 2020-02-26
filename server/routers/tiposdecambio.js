@@ -6,8 +6,8 @@ const { check, validationResult } = require('express-validator');
 
 
 router.post('/post/:idcompany',[
-    check('datos.moneda_origen').isLength({ min: 2 }),
-    check('datos.moneda_destino').isLength({ min: 2 })]
+    check('moneda_origen').isLength({ min: 2 }),
+    check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
 
     const errors = validationResult(req);
@@ -20,11 +20,9 @@ router.post('/post/:idcompany',[
    
     try {
         let tdc = new Tdc({
-            datos:{
-                moneda_o: body.datos.moneda_origen,
-                moneda_d: body.datos.moneda_destino,
-                valor: body.datos.valor,
-            },
+            moneda_o: body.moneda_origen,
+            moneda_d: body.moneda_destino,
+            valor: body.valor,
             company    
         });
 
@@ -42,8 +40,8 @@ router.post('/post/:idcompany',[
 });
 
 router.put('/put/:idcompany/:idtdc',[
-    check('datos.moneda_origen').isLength({ min: 2 }),
-    check('datos.moneda_destino').isLength({ min: 2 })]
+    check('moneda_origen').isLength({ min: 2 }),
+    check('moneda_destino').isLength({ min: 2 })]
     ,async(req, res)=>{
 
     const errors = validationResult(req);
@@ -57,12 +55,10 @@ router.put('/put/:idcompany/:idtdc',[
    
     try {
         let tdc = new Tdc({
-            datos:{
-                moneda_o: body.datos.moneda_origen,
-                moneda_d: body.datos.moneda_destino,
-                valor: body.datos.valor,
-                estado: body.datos.estado
-            },
+            moneda_o: body.moneda_origen,
+            moneda_d: body.moneda_destino,
+            valor: body.valor,
+            estado: body.estado,
             company: idcompany, 
             _id: id,
         });
