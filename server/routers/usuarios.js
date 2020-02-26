@@ -83,7 +83,7 @@ router.get('/get/:idcompany',async(req, res)=>{
     }).skip(desde).limit(limite).populate({
       path: 'companies.permisos',
       model: 'Permisos',
-      select: 'nombre'
+      select: 'nombre',
   });
 
     let tota_document = await Usuario.countDocuments({'companies.company': company});
