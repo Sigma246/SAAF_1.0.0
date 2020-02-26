@@ -80,7 +80,11 @@ router.get('/get/:idcompany',async(req, res)=>{
       'nombre': orderby_name,
       'apellido': orderby_apellido,
       'email': orderby_email
-    }).skip(desde).limit(limite);
+    }).skip(desde).limit(limite).populate({
+      path: 'companies.permisos',
+      model: 'Permisos',
+      select: 'nombre'
+  });
 
     let tota_document = await Usuario.countDocuments({'companies.company': company});
 
