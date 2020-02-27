@@ -20,8 +20,8 @@ router.post('/post/:idcompany',[
    
     try {
         let tdc = new Tdc({
-            moneda_o: body.moneda_origen,
-            moneda_d: body.moneda_destino,
+            moneda_origen: body.moneda_origen,
+            moneda_destino: body.moneda_destino,
             valor: body.valor,
             company    
         });
@@ -55,8 +55,8 @@ router.put('/put/:idcompany/:idtdc',[
    
     try {
         let tdc = new Tdc({
-            moneda_o: body.moneda_origen,
-            moneda_d: body.moneda_destino,
+            moneda_origen: body.moneda_origen,
+            moneda_destino: body.moneda_destino,
             valor: body.valor,
             estado: body.estado,
             company: idcompany, 
@@ -117,11 +117,11 @@ router.get('/get/:idcompany',async(req, res)=>{
     
     try {
         let tipo_de_cambio = await Tdc.find({'company': idcompany}).or([
-            {'moneda_o':{$regex: search}},
-            {'moneda_d':{$regex: search}},
+            {'moneda_origen':{$regex: search}},
+            {'moneda_destino':{$regex: search}},
         ]).sort({
-            'moneda_o': order_by_origen,
-            'moneda_d': order_by_destino,
+            'moneda_origen': order_by_origen,
+            'moneda_destino': order_by_destino,
             'fecha': order_by_fecha,
             'valor': order_by_valor,
         }).skip(desde).limit(limite);

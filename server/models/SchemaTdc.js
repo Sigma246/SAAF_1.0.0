@@ -4,13 +4,13 @@ const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const TdcDB = new Schema({
-    moneda_o:{
+    moneda_origen:{
         type: String,
         require: true,
         lowercase: true,
         trim: true,
     },
-    moneda_d:{
+    moneda_destino:{
         type: String,
         require: true,
         lowercase: true,
