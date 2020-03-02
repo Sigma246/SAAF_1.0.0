@@ -122,7 +122,7 @@ router.get('/get/:idcompany',async(req, res)=>{
         ]).sort({
             'moneda_origen': order_by_origen,
             'moneda_destino': order_by_destino,
-            'fecha': order_by_fecha,
+            'createdAt': order_by_fecha,
             'valor': order_by_valor,
         }).skip(desde).limit(limite);
 

@@ -114,7 +114,11 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'estado': order_by_estado,
         }).skip(desde).limit(limite);
 
-        let tota_document = await Proyectos.countDocuments({company, empresa});
+        let tota_document = await Proyectos.countDocuments({company, empresa}).or([
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+        
+            ]);
 
         res.json({
             ok: true,

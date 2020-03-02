@@ -86,7 +86,11 @@ router.get('/get/:idcompany',async(req, res)=>{
       select: 'nombre',
   });
 
-    let tota_document = await Usuario.countDocuments({'companies.company': company});
+    let tota_document = await Usuario.countDocuments({'companies.company': company}).or([
+      {'nombre':{$regex: search}},
+      {'apellido':{$regex: search}},
+      {'email':{$regex: search}}
+    ]);
 
     res.json({
       ok: true,

@@ -120,7 +120,11 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
         }).skip(desde).limit(limite);
 
         //valuar documentos con la porpierdad datos existente para el conteo
-        let tota_document = await Proveedores.countDocuments({company, empresa});
+        let tota_document = await Proveedores.countDocuments({company, empresa}).or([
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'email':{$regex: search}}
+        ]);
 
         res.json({
             ok: true,

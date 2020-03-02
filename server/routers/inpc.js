@@ -114,8 +114,7 @@ router.get('/get/:idcompany/:idinpc',async(req, res)=>{
 
 router.get('/get/:idcompany',async(req, res)=>{
     let company = req.params.idcompany;
-
-    let year = req.query.shearch_year;
+    let search = req.query.search;
 
     let filtro = req.query.filtro_year || -1;
     filtro = Number(filtro);
@@ -127,14 +126,17 @@ router.get('/get/:idcompany',async(req, res)=>{
     limite = Number(limite);
 
     try {
-        let Inpc;
-        if (typeof year == 'undefined') {
-            Inpc = await inpc.find({'company': company},).sort({'year':filtro}).skip(desde).limit(limite);    
-        } else {
-            Inpc = await inpc.find({'company': company, year},).sort({'year':filtro}).skip(desde).limit(limite);    
-        }
 
-        let tota_document = await inpc.countDocuments({company});
+        search = String(search);
+        let Inpc = await inpc.find({'company': company}).or([
+            {'year':{$regex: search}},
+        ]).sort({
+              'year':filtro})
+        .skip(desde).limit(limite);
+
+        let tota_document = await inpc.countDocuments({company}).or([
+            {'year':{$regex: search}},
+        ]);
 
         res.json({
             ok: true,
