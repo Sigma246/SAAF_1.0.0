@@ -7,8 +7,8 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const CamEmpleados = new Schema({
 
-    datos:{
-        nombre:{
+    campos:[{
+        valor:{
             type: String,
             require: true,
             lowercase: true,
@@ -21,8 +21,14 @@ const CamEmpleados = new Schema({
             trim: true,
             default: 'amdin',
         },
+        nombre_campo:{
+            type: String,
+            require: true,
+            lowercase: true,
+            trim: true,
+        },
         estado:{type: Boolean, default: true},
-    },
+    }],
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company"

@@ -6,6 +6,26 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 const EmpleadosDB = new Schema({
 
+    clave:{
+        type: String,
+        require: true,
+        trim: true,
+    },
+    nombre:{
+        type: String,
+        require: true,
+        trim: true,
+    },
+    apellido:{
+        type: String,
+        require: true,
+        trim: true,
+    },
+    posicion:{
+        type: String,
+        require: true,
+        trim: true,
+    },
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company"

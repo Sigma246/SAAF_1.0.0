@@ -5,7 +5,8 @@ const {Company} = require('../models/SchemaCompany');
 const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany',[
-    check('year').isLength({ min: 2 })]
+    check('year').isLength({ min: 4 })]
+     
     ,async(req, res)=>{
 
     const errors = validationResult(req);

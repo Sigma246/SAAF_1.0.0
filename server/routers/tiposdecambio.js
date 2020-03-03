@@ -126,7 +126,10 @@ router.get('/get/:idcompany',async(req, res)=>{
             'valor': order_by_valor,
         }).skip(desde).limit(limite);
 
-        let tota_document = await Tdc.countDocuments({'company': idcompany});
+        let tota_document = await Tdc.countDocuments({'company': idcompany}).or([
+            {'moneda_origen':{$regex: search}},
+            {'moneda_destino':{$regex: search}},
+        ]);
 
         res.json({
             ok: true,

@@ -12,7 +12,11 @@ router.post('/post/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let empleadodb = new empleados({
-            datos: body,
+            clave: body.clave,
+            nombre: body.nombre,
+            apellido: body.apellido,
+            posicion: body.posicion,
+            campos_extra: body.campos_extra,
             company,
             empresa
         })
@@ -33,10 +37,16 @@ router.put('/put/:idcompany/:idempresa/:idempleado',async(req, res)=>{
     let company = req.params.idcompany;
     let empresa = req.params.idempresa;
 
+
     try {
+
         let empleado = await empleados.findOneAndUpdate({_id: id, company, empresa}, {$set:{
-            datos: body.datos,
-            'estado': body.estado
+            'clave': body.clave,
+            'nombre': body.nombre,
+            'apellido': body.apellido,
+            'posicion': body.posicion,
+            'campos_extra': body.campos_extra,
+            'estado': body.estado,
         }});
         res.json({
             ok: true,
@@ -53,7 +63,7 @@ router.get('/get/:idcompany/:idempresa/:idempleado',async(req, res)=>{
     let empresa = req.params.idempresa;
 
     try {
-        let empleado = await empleados.find({_id: id, company, empresa});
+        let empleado = await empleados.findOne({_id: id, company, empresa});
         res.json({
             ok: true,
             empleado,
@@ -91,15 +101,15 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let empleado = await empleados.find({company, empresa}).or([
-            {'datos.clave':{$regex: search}},
-            {'datos.nombre':{$regex: search}},
-            {'datos.apellido':{$regex: search}},
-            {'datos.puesto':{$regex: search}}
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'apellido':{$regex: search}},
+            {'posicion':{$regex: search}},
         ]).sort({
-            'datos.clave': order_by_clave,
-            'datos.nombre': order_by_nombre,
-            'datos.apellido': order_by_apellido,
-            'datos.puesto': order_by_puesto
+            'clave': order_by_clave,
+            'nombre': order_by_nombre,
+            'apellido': order_by_apellido,
+            'posicion': order_by_puesto
         }).skip(desde).limit(limite);
 
         let tota_document = await empleados.countDocuments({company, empresa});

@@ -4,8 +4,8 @@ const {camempleados} = require('../models/SchemaCamposEmpleados');
 const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany/:idempresa',[
-    check('datos.nombre').isLength({ min: 2 }),
-    check('datos.rol').isLength({ min: 2 }),
+    //check('campos.valor').isLength({ min: 2 }),
+    //check('campos.rol').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -19,10 +19,7 @@ router.post('/post/:idcompany/:idempresa',[
 
     try {
         let campo_empleado = new camempleados({
-            datos:{
-                nombre: body.datos.nombre,
-                rol: body.datos.rol,
-            },
+            campos: body.campos,
             company,
             empresa
         });
