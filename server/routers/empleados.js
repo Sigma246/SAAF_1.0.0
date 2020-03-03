@@ -112,7 +112,12 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'posicion': order_by_puesto
         }).skip(desde).limit(limite);
 
-        let tota_document = await empleados.countDocuments({company, empresa});
+        let tota_document = await empleados.countDocuments({company, empresa}).or([
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'apellido':{$regex: search}},
+            {'posicion':{$regex: search}},
+        ]);
 
         res.json({
             ok: true,
