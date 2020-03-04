@@ -5,7 +5,7 @@ const {Company} = require('./SchemaCompany');
 const uniqueValidator = require('mongoose-unique-validator');
 
 
-const ElementSchema = new Schema({
+const ElementoDB = new Schema({
     clave: {
       type: String,
       required: true,
@@ -16,33 +16,22 @@ const ElementSchema = new Schema({
       required: true,
       trim: true,
     },
+    fecha: {type:Date, default:Date.now},
     estado:{type: Boolean, default: true},
-    
 });
 
-const CamEmpleados = new Schema({
-
-    campos_extra:[{
-        valor:{
-            type: String,
-            require: true,
-            trim: true,
-        },
-        rol:{
-            type: String,
-            require: true,
-            trim: true,
-            default: 'amdin',
-        },
-        nombre_campo:{
-            type: String,
-            require: true,
-            lowercase: true,
-            trim: true,
-        },
-        elements: [ElementSchema],
-        estado:{type: Boolean, default: true},
-    }],
+const CamEmpleados = new Schema({ 
+     nombre: {
+        type: String,
+        require: true,
+        lowercase: true,
+        trim: true,
+    },
+    clave: {
+        type: String,
+        require: true,
+        trim: true,
+    },
     company: {
         type: Schema.Types.ObjectId,
         ref: "Company"
@@ -51,6 +40,8 @@ const CamEmpleados = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Empresa"
     },
+    elementos: [ElementoDB],
+    estado:{type: Boolean, default: true},
     
 },{timestamps: true});
 
