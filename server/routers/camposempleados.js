@@ -3,7 +3,7 @@ const router = express.Router();
 const {camempleados} = require('../models/SchemaCamposEmpleados');
 const { check, validationResult } = require('express-validator');
 
-router.post('/post/:idcompany/:idempresa',[
+/* router.post('/post/:idcompany/:idempresa',[
     //check('campos.valor').isLength({ min: 2 }),
     //check('campos.rol').isLength({ min: 2 }),
 ],async(req, res)=>{
@@ -19,7 +19,7 @@ router.post('/post/:idcompany/:idempresa',[
 
     try {
         let campo_empleado = new camempleados({
-            campos: body.campos,
+            campos_extra: body.campos_extra,
             company,
             empresa
         });
@@ -32,12 +32,34 @@ router.post('/post/:idcompany/:idempresa',[
         res.status(500).json(e);
     }
 
-});
+}); */
 
-router.put('/put/:idcompany/:idempresa/:idcampo',[
-    check('datos.nombre').isLength({ min: 2 }),
-    check('datos.rol').isLength({ min: 2 }),
-],async(req, res)=>{
+
+router.post('/post/:idcompany/:idempresa',async(req, res)=>{
+    let body = req.body;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    
+    try {
+        
+        let allCampos =  await camempleados.findOne({company, empresa});
+        allCampos.campos_extra.push(body);
+        
+        let campoempleado = await camempleados.findOneAndUpdate({company, empresa},{$set:{
+            'campos_extra': allCampos.campos_extra,
+        }});
+
+        res.json({
+            ok: true,
+            campoempleado: allCampos,
+        });
+
+    } catch (e) {
+        res.status(500).json(e);
+    }
+})
+
+router.put('/put/:idcompany/:idempresa/:idcampos/:idcampo',async(req, res)=>{
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -45,26 +67,39 @@ router.put('/put/:idcompany/:idempresa/:idcampo',[
     }
 
     let body = req.body;
-    let id = req.params.idcampo;
+    let campos = req.params.idcampos;
+    let campo = req.params.idcampo;
     let company = req.params.idcompany;
     let empresa = req.params.idempresa;
     
     try {
 
-        let campoempleado = await camempleados.findByIdAndUpdate({_id: id, company, empresa},{$set:{
-            'datos.nombre':body.datos.nombre,
-            'datos.estado':body.datos.estado,
-            'datos.rol':body.datos.rol}});
+        let allCampos =  await camempleados.findById({_id: campos});
+
+        allCampos.campos_extra.map(function(dato){
+            if(dato._id == campo){
+              dato.valor = body.valor;
+              dato.estado = body.estado;
+              dato.rol = body.rol;
+              dato.nombre_campo = body.nombre_campo;
+              dato.elements = body.elements
+            }
+            return dato;
+          });
+
+        let campoempleado = await camempleados.findOneAndUpdate({_id: campos, company, empresa},{$set:{
+            'campos_extra': allCampos.campos_extra,
+        }});
         res.json({
             ok: true,
-            campoempleado
+            campoempleado: allCampos,
         });
     } catch (e) {
         res.status(500).json(e);
     }
 });
 
-router.get('/get/:idcompany/:idempresa/:idcampo',async(req, res)=>{
+/* router.get('/get/:idcompany/:idempresa/:idcampo',async(req, res)=>{
     
     let id = req.params.idcampo;
     let company = req.params.idcompany;
@@ -80,7 +115,7 @@ router.get('/get/:idcompany/:idempresa/:idcampo',async(req, res)=>{
         res.status(500).json(e);
     }
 });
-
+ */
 
 router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     
@@ -91,8 +126,8 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
     let order_by_name = req.query.order_by_nombre;
     order_by_name = Number(order_by_name);
 
-    let order_by_status =  req.query.order_by_estado;
-    order_by_status = Number(order_by_status);
+    let order_by_rol =  req.query.order_by_rol;
+    order_by_rol = Number(order_by_rol);
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -102,10 +137,10 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let campoempleado = await camempleados.find({company, empresa}).or([
-            {'datos.nombre':{$regex: search}}
+            {'campos_extra.nombre_campo':{$regex: search}}
         ]).sort({
-            'datos.nombre': order_by_name,
-            'datos.estado': order_by_status,
+            'campos_extra.nombre_campo': order_by_name,
+            'campos_extra.rol': order_by_rol,
         }).skip(desde).limit(limite);
 
         let tota_document = await camempleados.countDocuments({company, empresa});

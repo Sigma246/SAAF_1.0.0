@@ -44,12 +44,13 @@ router.post('/:idcompany',[
         let ubicacion_ = await ubicacion.save();
 
         //Crea Campos default para captura de empleados
-        let campos_default = [
-          {datos:{nombre:"clave"},company,empresa: empresaDB._id},
-          {datos:{nombre:"nombre"},company,empresa: empresaDB._id},
-          {datos:{nombre:"apellido"},company,empresa: empresaDB._id},
-          {datos:{nombre:"puesto"},company,empresa: empresaDB._id},
-        ]
+
+        let campos_default = new camempleados({
+          campos_extra: [],
+          company,
+          empresa: empresaDB._id,
+          
+        });
         let CamposEmpleados = await camempleados.insertMany(campos_default)
 
         // Crea Campos default para Catalogos
