@@ -4,8 +4,8 @@ const {cuentascontables} = require('../models/SchemaCuentasContables');
 const { check, validationResult } = require('express-validator');
 
 router.post('/post/:idcompany/:idempresa',[
-    check('datos.clave').isLength({ min: 2 }),
-    check('datos.nombre').isLength({ min: 2 }),
+    check('clave').isLength({ min: 2 }),
+    check('nombre').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -19,13 +19,12 @@ router.post('/post/:idcompany/:idempresa',[
 
     try {
         let CuentasContables = new cuentascontables({
-            datos:{
-                clave: body.datos.clave,
-                nombre: body.datos.nombre,
-                descripcion: body.datos.descripcion,
-                deprefinanciera: body.datos.deprefinanciera,
-                deprefiscal: body.datos.deprefiscal,
-            },
+            
+            clave: body.clave,
+            nombre: body.nombre,
+            descripcion: body.descripcion,
+            deprefinanciera: body.deprefinanciera,
+            deprefiscal: body.deprefiscal,
             elementos: body.elementos,
             company,
             empresa
@@ -42,8 +41,8 @@ router.post('/post/:idcompany/:idempresa',[
 });
 
 router.put('/put/:idcompany/:idempresa/:idcuenta',[
-    check('datos.clave').isLength({ min: 2 }),
-    check('datos.nombre').isLength({ min: 2 }),
+    check('clave').isLength({ min: 2 }),
+    check('nombre').isLength({ min: 2 }),
 ],async(req, res)=>{
 
     const errors = validationResult(req);
@@ -58,12 +57,12 @@ router.put('/put/:idcompany/:idempresa/:idcuenta',[
 
     try {
         let cuentacontable = await cuentascontables.findOneAndUpdate({_id: id, company, empresa},{$set:{
-            'datos.clave': body.datos.clave,
-            'datos.nombre': body.datos.nombre,
-            'datos.descripcion': body.datos.descripcion,
-            'datos.deprefinanciera': body.datos.deprefinanciera,
-            'datos.deprefiscal': body.datos.deprefiscal,
-            'datos.estado': body.datos.estado
+            'clave': body.clave,
+            'nombre': body.nombre,
+            'descripcion': body.descripcion,
+            'deprefinanciera': body.deprefinanciera,
+            'deprefiscal': body.deprefiscal,
+            'estado': body.estado
         }});
         res.json({
             ok: true,
@@ -143,21 +142,24 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
 
     try {
         let cuentacontable = await cuentascontables.find({company, empresa}).or([
-            {'datos.clave':{$regex: search}},
-            {'datos.nombre':{$regex: search}},
-            {'datos.descripcion':{$regex: search}}
-
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'descripcion':{$regex: search}}
         ]).sort({
-            'datos.clave': order_by_clave,
-            'datos.nombre': order_by_nombre,
-            'datos.descripcion': order_by_descripcion,
-            'datos.estado': order_by_status,
+            'clave': order_by_clave,
+            'nombre': order_by_nombre,
+            'descripcion': order_by_descripcion,
+            'estado': order_by_status,
         }).skip(desde).limit(limite);
 
         //valuar documentos con la porpierdad datos existente para el conteo
-        let where = { datos: {$exists: true, $not: {$size: 0}} };
-        let tota_document = await cuentascontables.countDocuments({company, empresa}).where(where);
-
+        //let where = { datos: {$exists: true, $not: {$size: 0}} };
+        //let tota_document = await cuentascontables.countDocuments({company, empresa}).where(where);
+        let tota_document = await cuentascontables.countDocuments({company, empresa}).or([
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+            {'descripcion':{$regex: search}}
+        ]);
         res.json({
             ok: true,
             cuentacontable,
