@@ -40,6 +40,31 @@ router.post('/post/:idcompany/:idempresa',[
 
 });
 
+
+router.put('/elementos/:idcompany/:idempresa/:iddepreciacion',async(req, res)=>{
+
+    let body = req.body;
+    let company = req.params.idcompany;
+    let empresa = req.params.idempresa;
+    let id = req.params.iddepreciacion;
+
+    try {
+
+        let depreciaciones = new Depreciacion({
+            rangos: body.rangos,
+        })
+        let depreciacion =  await Depreciacion.findById({company, empresa, _id: id});
+        let actualizado = await Depreciacion.updateOne({company, empresa, _id: id}, {$set: {rangos: depreciaciones.rangos }});
+        res.json({
+            ok: true,
+            depreciacion
+        });
+    } catch (e) {
+        res.status(500).json(e);
+    }
+})
+
+
 router.put('/put/:idcompany/:idempresa/:iddepreciacion',[
     check('clave').isLength({ min: 2 }),
     check('nombre').isLength({ min: 2 }),
@@ -56,16 +81,18 @@ router.put('/put/:idcompany/:idempresa/:iddepreciacion',[
     let id = req.params.iddepreciacion;
 
     try {
-        
-        let depreciacion = await Depreciacion.updateOne({company, empresa, _id: id}, {$set: {
+        console.log(body)
+        let actualizado = await Depreciacion.updateOne({company, empresa, _id: id}, {$set: {
             'clave': body.clave,
             'nombre': body.nombre,
             'criterio': body.criterio,
             'maximocatidad': body.maximocatidad,
             'maximoporcentaje': body.maximoporcentaje,
-            'rangos': body.rangos,
-            'meses': body.meses
+            'meses': body.meses,
+            'estado': body.estado,
         }});
+
+        let depreciacion = await Depreciacion.findById({company, empresa, _id: id});
 
         res.json({
             ok: true,
@@ -126,7 +153,10 @@ router.get('/get/:idcompany/:idempresa',async(req, res)=>{
             'estado': order_by_status,
         }).skip(desde).limit(limite);
 
-        let tota_document = await Depreciacion.countDocuments({company, empresa});
+        let tota_document = await Depreciacion.countDocuments({company, empresa}).or([
+            {'clave':{$regex: search}},
+            {'nombre':{$regex: search}},
+        ]);
 
         res.json({
             ok: true,

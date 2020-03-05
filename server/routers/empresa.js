@@ -121,7 +121,28 @@ router.post('/:idcompany',[
             clave: "DEP-0056",
             nombre: "Fiscal Activos utilizados en restaurantes.",
             criterio: "mes siguiente",
-            rangos: {valor: [20,20,20,20,20]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "20"
+              },
+              {
+              clave: "2",
+              valor: "20"
+              },
+              {
+              clave: "3",
+              valor: "20"
+              },
+              {
+              clave: "4",
+              valor: "20"
+              },
+              {
+              clave: "5",
+              valor: "20"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -130,7 +151,76 @@ router.post('/:idcompany',[
             clave: "DEP-0057",
             nombre: "Fiscal Embarcaciones",
             criterio: "mes siguiente",
-            rangos: {valor: [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "6"
+              },
+              {
+              clave: "2",
+              valor: "6"
+              },
+              {
+              clave: "3",
+              valor: "6"
+              },
+              {
+              clave: "4",
+              valor: "6"
+              },
+              {
+              clave: "5",
+              valor: "6"
+              },
+              {
+              clave: "6",
+              valor: "6"
+              },
+              {
+              clave: "7",
+              valor: "6"
+              },
+              {
+              clave: "8",
+              valor: "6"
+              },
+              {
+              clave: "9",
+              valor: "6"
+              },
+              {
+              clave: "10",
+              valor: "6"
+              },
+              {
+              clave: "11",
+              valor: "6"
+              },
+              {
+              clave: "12",
+              valor: "6"
+              },
+              {
+              clave: "13",
+              valor: "6"
+              },
+              {
+              clave: "14",
+              valor: "6"
+              },
+              {
+              clave: "15",
+              valor: "6"
+              },
+              {
+              clave: "16",
+              valor: "6"
+              },
+              {
+              clave: "17",
+              valor: "4"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -139,7 +229,88 @@ router.post('/:idcompany',[
             clave: "DEP-0058",
             nombre: "Fiscal Construcciones",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -148,7 +319,24 @@ router.post('/:idcompany',[
             clave: "DEP-0053",
             nombre: "Fiscal Equipo de la central telefónica destinado a la conmutación de llamadas de tecnología distinta a la electromecánica.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],  
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -157,7 +345,24 @@ router.post('/:idcompany',[
             clave: "DEP-0054",
             nombre: "Fiscal Lectores de código de barras",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -166,7 +371,48 @@ router.post('/:idcompany',[
             clave: "DEP-0055",
             nombre: "Fiscal Equipo utilizado en la transmisión y manejo que utiliza el espectro radioeléctrico, tales como el de radiotransmisión de microonda digital o analógica, torres de microondas y guías de onda.",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],  
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -175,7 +421,56 @@ router.post('/:idcompany',[
             clave: "DEP-0050",
             nombre: "Fiscal Activos utilizados en la impresión y publicación gráfica.",
             criterio: "mes siguiente",
-            rangos: {valor: [9,9,9,9,9,9,9,9,9,9,9,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "9"
+              },
+              {
+              clave: "2",
+              valor: "9"
+              },
+              {
+              clave: "3",
+              valor: "9"
+              },
+              {
+              clave: "4",
+              valor: "9"
+              },
+              {
+              clave: "5",
+              valor: "9"
+              },
+              {
+              clave: "6",
+              valor: "9"
+              },
+              {
+              clave: "7",
+              valor: "9"
+              },
+              {
+              clave: "8",
+              valor: "9"
+              },
+              {
+              clave: "9",
+              valor: "9"
+              },
+              {
+              clave: "10",
+              valor: "9"
+              },
+              {
+              clave: "11",
+              valor: "9"
+              },
+              {
+              clave: "12",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -184,7 +479,56 @@ router.post('/:idcompany',[
             clave: "DEP-0051",
             nombre: "Fiscal Activos utilizados en el curtido de piel.",
             criterio: "mes siguiente",
-            rangos: {valor: [9,9,9,9,9,9,9,9,9,9,9,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "9"
+              },
+              {
+              clave: "2",
+              valor: "9"
+              },
+              {
+              clave: "3",
+              valor: "9"
+              },
+              {
+              clave: "4",
+              valor: "9"
+              },
+              {
+              clave: "5",
+              valor: "9"
+              },
+              {
+              clave: "6",
+              valor: "9"
+              },
+              {
+              clave: "7",
+              valor: "9"
+              },
+              {
+              clave: "8",
+              valor: "9"
+              },
+              {
+              clave: "9",
+              valor: "9"
+              },
+              {
+              clave: "10",
+              valor: "9"
+              },
+              {
+              clave: "11",
+              valor: "9"
+              },
+              {
+              clave: "12",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -193,7 +537,24 @@ router.post('/:idcompany',[
             clave: "DEP-0052",
             nombre: "Fiscal Activos utilizados en otras actividades no especificadas.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -202,7 +563,24 @@ router.post('/:idcompany',[
             clave: "DEP-0047",
             nombre: "Fiscal Activos utilizados en actividades de agricultura, ganadería, silvicultura y pesca.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -211,7 +589,24 @@ router.post('/:idcompany',[
             clave: "DEP-0048",
             nombre: "Fiscal Activos utilizados en la industria de la construcción.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -220,7 +615,60 @@ router.post('/:idcompany',[
             clave: "DEP-0049",
             nombre: "Fiscal Segmento satelital en el espacio, incluyendo el cuerpo principal del satélite, los transpondedores, las antenas para la transmisión y recepción de comunicaciones digitales y análogas y el equipo de monitoreo en el satélite.",
             criterio: "mes siguiente",
-            rangos: {valor: [8,8,8,8,8,8,8,8,8,8,8,8,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "8"
+              },
+              {
+              clave: "2",
+              valor: "8"
+              },
+              {
+              clave: "3",
+              valor: "8"
+              },
+              {
+              clave: "4",
+              valor: "8"
+              },
+              {
+              clave: "5",
+              valor: "8"
+              },
+              {
+              clave: "6",
+              valor: "8"
+              },
+              {
+              clave: "7",
+              valor: "8"
+              },
+              {
+              clave: "8",
+              valor: "8"
+              },
+              {
+              clave: "9",
+              valor: "8"
+              },
+              {
+              clave: "10",
+              valor: "8"
+              },
+              {
+              clave: "11",
+              valor: "8"
+              },
+              {
+              clave: "12",
+              valor: "8"
+              },
+              {
+              clave: "13",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -229,7 +677,60 @@ router.post('/:idcompany',[
             clave: "DEP-0045",
             nombre: "Fiscal Activos utilizados en la elaboración de productos alimenticios y de bebidas, excepto granos, azúcar, aceites comestibles y derivados.",
             criterio: "mes siguiente",
-            rangos: {valor: [8,8,8,8,8,8,8,8,8,8,8,8,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "8"
+              },
+              {
+              clave: "2",
+              valor: "8"
+              },
+              {
+              clave: "3",
+              valor: "8"
+              },
+              {
+              clave: "4",
+              valor: "8"
+              },
+              {
+              clave: "5",
+              valor: "8"
+              },
+              {
+              clave: "6",
+              valor: "8"
+              },
+              {
+              clave: "7",
+              valor: "8"
+              },
+              {
+              clave: "8",
+              valor: "8"
+              },
+              {
+              clave: "9",
+              valor: "8"
+              },
+              {
+              clave: "10",
+              valor: "8"
+              },
+              {
+              clave: "11",
+              valor: "8"
+              },
+              {
+              clave: "12",
+              valor: "8"
+              },
+              {
+              clave: "13",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -238,7 +739,48 @@ router.post('/:idcompany',[
             clave: "DEP-0046",
             nombre: "Fiscal Otros casos",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -247,7 +789,20 @@ router.post('/:idcompany',[
             clave: "DEP-0041",
             nombre: "Fiscal Activos destinados directamente a la investigación de nuevos productos o desarrollo tecnológico en el país.",
             criterio: "mes siguiente",
-            rangos: {valor: [35,35,30]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "35"
+              },
+              {
+              clave: "2",
+              valor: "35"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -256,7 +811,44 @@ router.post('/:idcompany',[
             clave: "DEP-0042",
             nombre: "Fiscal Activos utilizados en la construcción de aeronaves y en el transporte terrestre de carga y pasajeros.",
             criterio: "mes siguiente",
-            rangos: {valor: [12,12,12,12,12,12,12,12,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "12"
+              },
+              {
+              clave: "2",
+              valor: "12"
+              },
+              {
+              clave: "3",
+              valor: "12"
+              },
+              {
+              clave: "4",
+              valor: "12"
+              },
+              {
+              clave: "5",
+              valor: "12"
+              },
+              {
+              clave: "6",
+              valor: "12"
+              },
+              {
+              clave: "7",
+              valor: "12"
+              },
+              {
+              clave: "8",
+              valor: "12"
+              },
+              {
+              clave: "9",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -265,7 +857,56 @@ router.post('/:idcompany',[
             clave: "DEP-0043",
             nombre: "Fiscal Activos utilizados en la fabricación de productos de caucho y de plástico.",
             criterio: "mes siguiente",
-            rangos: {valor: [9,9,9,9,9,9,9,9,9,9,9,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "9"
+              },
+              {
+              clave: "2",
+              valor: "9"
+              },
+              {
+              clave: "3",
+              valor: "9"
+              },
+              {
+              clave: "4",
+              valor: "9"
+              },
+              {
+              clave: "5",
+              valor: "9"
+              },
+              {
+              clave: "6",
+              valor: "9"
+              },
+              {
+              clave: "7",
+              valor: "9"
+              },
+              {
+              clave: "8",
+              valor: "9"
+              },
+              {
+              clave: "9",
+              valor: "9"
+              },
+              {
+              clave: "10",
+              valor: "9"
+              },
+              {
+              clave: "11",
+              valor: "9"
+              },
+              {
+              clave: "12",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -274,7 +915,44 @@ router.post('/:idcompany',[
             clave: "DEP-0044",
             nombre: "Fiscal Activos utilizados en la transmisión de los servicios de comunicación proporcionados por telégrafos y por las estaciones de radio y televisión.",
             criterio: "mes siguiente",
-            rangos: {valor: [12,12,12,12,12,12,12,12,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "12"
+              },
+              {
+              clave: "2",
+              valor: "12"
+              },
+              {
+              clave: "3",
+              valor: "12"
+              },
+              {
+              clave: "4",
+              valor: "12"
+              },
+              {
+              clave: "5",
+              valor: "12"
+              },
+              {
+              clave: "6",
+              valor: "12"
+              },
+              {
+              clave: "7",
+              valor: "12"
+              },
+              {
+              clave: "8",
+              valor: "12"
+              },
+              {
+              clave: "9",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -283,7 +961,88 @@ router.post('/:idcompany',[
             clave: "DEP-0038",
             nombre: "Fiscal Activos utilizados en la fabricación de aceites comestibles.",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -292,7 +1051,16 @@ router.post('/:idcompany',[
             clave: "DEP-0039",
             nombre: "Fiscal Activos utilizados en la manufactura, ensamble y transformación de componentes magnéticos para discos duros y tarjetas electrónicas para la industria de la computación.",
             criterio: "mes siguiente",
-            rangos: {valor: [50,50]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "50"
+              },
+              {
+              clave: "2",
+              valor: "50"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -301,7 +1069,24 @@ router.post('/:idcompany',[
             clave: "DEP-0040",
             nombre: "Fiscal Dedicados a la aerofumigación agrícola.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -310,7 +1095,60 @@ router.post('/:idcompany',[
             clave: "DEP-0035",
             nombre: "Fiscal Activos utilizados en la construcción de ferrocarriles y navíos.",
             criterio: "mes siguiente",
-            rangos: {valor: [8,8,8,8,8,8,8,8,8,8,8,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "8"
+              },
+              {
+              clave: "2",
+              valor: "8"
+              },
+              {
+              clave: "3",
+              valor: "8"
+              },
+              {
+              clave: "4",
+              valor: "8"
+              },
+              {
+              clave: "5",
+              valor: "8"
+              },
+              {
+              clave: "6",
+              valor: "8"
+              },
+              {
+              clave: "7",
+              valor: "8"
+              },
+              {
+              clave: "8",
+              valor: "8"
+              },
+              {
+              clave: "9",
+              valor: "8"
+              },
+              {
+              clave: "10",
+              valor: "8"
+              },
+              {
+              clave: "11",
+              valor: "8"
+              },
+              {
+              clave: "12",
+              valor: "8"
+              },
+              {
+              clave: "13",
+              valor: "4"
+              },
+            ],  
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -319,7 +1157,48 @@ router.post('/:idcompany',[
             clave: "DEP-0036",
             nombre: "Fiscal Activos utilizados en la fabricación, acabado, teñido y estampado de productos textiles, así como de prendas para el vestido.",
             criterio: "mes siguiente",
-            rangos: {valor: [11,11,11,11,11,11,11,11,11,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "11"
+              },
+              {
+              clave: "2",
+              valor: "11"
+              },
+              {
+              clave: "3",
+              valor: "11"
+              },
+              {
+              clave: "4",
+              valor: "11"
+              },
+              {
+              clave: "5",
+              valor: "11"
+              },
+              {
+              clave: "6",
+              valor: "11"
+              },
+              {
+              clave: "7",
+              valor: "11"
+              },
+              {
+              clave: "8",
+              valor: "11"
+              },
+              {
+              clave: "9",
+              valor: "11"
+              },
+              {
+              clave: "10",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -328,7 +1207,44 @@ router.post('/:idcompany',[
             clave: "DEP-0037",
             nombre: "Fiscal Activos utilizados en la industria minera.",
             criterio: "mes siguiente",
-            rangos: {valor: [12,12,12,12,12,12,12,12,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "12"
+              },
+              {
+              clave: "2",
+              valor: "12"
+              },
+              {
+              clave: "3",
+              valor: "12"
+              },
+              {
+              clave: "4",
+              valor: "12"
+              },
+              {
+              clave: "5",
+              valor: "12"
+              },
+              {
+              clave: "6",
+              valor: "12"
+              },
+              {
+              clave: "7",
+              valor: "12"
+              },
+              {
+              clave: "8",
+              valor: "12"
+              },
+              {
+              clave: "9",
+              valor: "4"
+              },
+            ],  
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -337,7 +1253,88 @@ router.post('/:idcompany',[
             clave: "DEP-0031",
             nombre: "Fiscal Activos utilizados en el transporte marítimo, fluvial y lacustre.",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -346,7 +1343,20 @@ router.post('/:idcompany',[
             clave: "DEP-0032",
             nombre: "Fiscal Dados, troqueles, moldes, matrices y herramental",
             criterio: "mes siguiente",
-            rangos: {valor: [35,35,30]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "35"
+              },
+              {
+              clave: "2",
+              valor: "35"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -355,7 +1365,36 @@ router.post('/:idcompany',[
             clave: "DEP-0033",
             nombre: "Fiscal Activos utilizados en el transporte aéreo.",
             criterio: "mes siguiente",
-            rangos: {valor: [16,16,16,16,16,16,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "16"
+              },
+              {
+              clave: "2",
+              valor: "16"
+              },
+              {
+              clave: "3",
+              valor: "16"
+              },
+              {
+              clave: "4",
+              valor: "16"
+              },
+              {
+              clave: "5",
+              valor: "16"
+              },
+              {
+              clave: "6",
+              valor: "16"
+              },
+              {
+              clave: "7",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -364,7 +1403,60 @@ router.post('/:idcompany',[
             clave: "DEP-0034",
             nombre: "Fiscal Activos utilizados en la fabricación de productos de metal, de maquinaria y de instrumentos profesionales y científicos.",
             criterio: "mes siguiente",
-            rangos: {valor: [8,8,8,8,8,8,8,8,8,8,8,8,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "8"
+              },
+              {
+              clave: "2",
+              valor: "8"
+              },
+              {
+              clave: "3",
+              valor: "8"
+              },
+              {
+              clave: "4",
+              valor: "8"
+              },
+              {
+              clave: "5",
+              valor: "8"
+              },
+              {
+              clave: "6",
+              valor: "8"
+              },
+              {
+              clave: "7",
+              valor: "8"
+              },
+              {
+              clave: "8",
+              valor: "8"
+              },
+              {
+              clave: "9",
+              valor: "8"
+              },
+              {
+              clave: "10",
+              valor: "8"
+              },
+              {
+              clave: "11",
+              valor: "8"
+              },
+              {
+              clave: "12",
+              valor: "8"
+              },
+              {
+              clave: "13",
+              valor: "4"
+              },
+            ],  
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -373,7 +1465,88 @@ router.post('/:idcompany',[
             clave: "DEP-0028",
             nombre: "Fiscal Vias férreas",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -382,7 +1555,68 @@ router.post('/:idcompany',[
             clave: "DEP-0029",
             nombre: "Fiscal Activos utilizados en la fabricación de pulpa, papel y productos similares.",
             criterio: "mes siguiente",
-            rangos: {valor: [7,7,7,7,7,7,7,7,7,7,7,7,7,7,2]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "7"
+              },
+              {
+              clave: "2",
+              valor: "7"
+              },
+              {
+              clave: "3",
+              valor: "7"
+              },
+              {
+              clave: "4",
+              valor: "7"
+              },
+              {
+              clave: "5",
+              valor: "7"
+              },
+              {
+              clave: "6",
+              valor: "7"
+              },
+              {
+              clave: "7",
+              valor: "7"
+              },
+              {
+              clave: "8",
+              valor: "7"
+              },
+              {
+              clave: "9",
+              valor: "7"
+              },
+              {
+              clave: "10",
+              valor: "7"
+              },
+              {
+              clave: "11",
+              valor: "7"
+              },
+              {
+              clave: "12",
+              valor: "7"
+              },
+              {
+              clave: "13",
+              valor: "7"
+              },
+              {
+              clave: "14",
+              valor: "7"
+              },
+              {
+              clave: "15",
+              valor: "2"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -391,7 +1625,76 @@ router.post('/:idcompany',[
             clave: "DEP-0030",
             nombre: "Fiscal Activos utilizados en la producción de metal obtenido en primer proceso.",
             criterio: "mes siguiente",
-            rangos: {valor: [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "6"
+              },
+              {
+              clave: "2",
+              valor: "6"
+              },
+              {
+              clave: "3",
+              valor: "6"
+              },
+              {
+              clave: "4",
+              valor: "6"
+              },
+              {
+              clave: "5",
+              valor: "6"
+              },
+              {
+              clave: "6",
+              valor: "6"
+              },
+              {
+              clave: "7",
+              valor: "6"
+              },
+              {
+              clave: "8",
+              valor: "6"
+              },
+              {
+              clave: "9",
+              valor: "6"
+              },
+              {
+              clave: "10",
+              valor: "6"
+              },
+              {
+              clave: "11",
+              valor: "6"
+              },
+              {
+              clave: "12",
+              valor: "6"
+              },
+              {
+              clave: "13",
+              valor: "6"
+              },
+              {
+              clave: "14",
+              valor: "6"
+              },
+              {
+              clave: "15",
+              valor: "6"
+              },
+              {
+              clave: "16",
+              valor: "6"
+              },
+              {
+              clave: "17",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -400,7 +1703,12 @@ router.post('/:idcompany',[
             clave: "DEP-0025",
             nombre: "Fiscal Maquinaria y equipo para la generación de energía proveniente de fuentes renovables o de sistemas de cogeneración de electricidad eficiente.",
             criterio: "mes siguiente",
-            rangos: {valor: [100]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "100"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -409,7 +1717,48 @@ router.post('/:idcompany',[
             clave: "DEP-0026",
             nombre: "Fiscal Equipo satelital en tierra, incluyendo las antenas para la transmisión y recepción de comunicaciones digitales y análogas y el equipo para el monitoreo del satélite.",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -418,7 +1767,76 @@ router.post('/:idcompany',[
             clave: "DEP-0027",
             nombre: "Fiscal Carros de ferrocarril, locomotoras, armones y autoarmones",
             criterio: "mes siguiente",
-            rangos: {valor: [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "6"
+              },
+              {
+              clave: "2",
+              valor: "6"
+              },
+              {
+              clave: "3",
+              valor: "6"
+              },
+              {
+              clave: "4",
+              valor: "6"
+              },
+              {
+              clave: "5",
+              valor: "6"
+              },
+              {
+              clave: "6",
+              valor: "6"
+              },
+              {
+              clave: "7",
+              valor: "6"
+              },
+              {
+              clave: "8",
+              valor: "6"
+              },
+              {
+              clave: "9",
+              valor: "6"
+              },
+              {
+              clave: "10",
+              valor: "6"
+              },
+              {
+              clave: "11",
+              valor: "6"
+              },
+              {
+              clave: "12",
+              valor: "6"
+              },
+              {
+              clave: "13",
+              valor: "6"
+              },
+              {
+              clave: "14",
+              valor: "6"
+              },
+              {
+              clave: "15",
+              valor: "6"
+              },
+              {
+              clave: "16",
+              valor: "6"
+              },
+              {
+              clave: "17",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -427,7 +1845,144 @@ router.post('/:idcompany',[
             clave: "DEP-0022",
             nombre: "Fiscal Bombas de suministro a trenes",
             criterio: "mes siguiente",
-            rangos: {valor: [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "3"
+              },
+              {
+              clave: "2",
+              valor: "3"
+              },
+              {
+              clave: "3",
+              valor: "3"
+              },
+              {
+              clave: "4",
+              valor: "3"
+              },
+              {
+              clave: "5",
+              valor: "3"
+              },
+              {
+              clave: "6",
+              valor: "3"
+              },
+              {
+              clave: "7",
+              valor: "3"
+              },
+              {
+              clave: "8",
+              valor: "3"
+              },
+              {
+              clave: "9",
+              valor: "3"
+              },
+              {
+              clave: "10",
+              valor: "3"
+              },
+              {
+              clave: "11",
+              valor: "3"
+              },
+              {
+              clave: "12",
+              valor: "3"
+              },
+              {
+              clave: "13",
+              valor: "3"
+              },
+              {
+              clave: "14",
+              valor: "3"
+              },
+              {
+              clave: "15",
+              valor: "3"
+              },
+              {
+              clave: "16",
+              valor: "3"
+              },
+              {
+              clave: "17",
+              valor: "3"
+              },
+              {
+              clave: "18",
+              valor: "3"
+              },
+              {
+              clave: "19",
+              valor: "3"
+              },
+              {
+              clave: "20",
+              valor: "3"
+              },
+              {
+              clave: "21",
+              valor: "3"
+              },
+              {
+              clave: "22",
+              valor: "3"
+              },
+              {
+              clave: "23",
+              valor: "3"
+              },
+              {
+              clave: "24",
+              valor: "3"
+              },
+              {
+              clave: "25",
+              valor: "3"
+              },
+              {
+              clave: "26",
+              valor: "3"
+              },
+              {
+              clave: "27",
+              valor: "3"
+              },
+              {
+              clave: "28",
+              valor: "3"
+              },
+              {
+              clave: "29",
+              valor: "3"
+              },
+              {
+              clave: "30",
+              valor: "3"
+              },
+              {
+              clave: "31",
+              valor: "3"
+              },
+              {
+              clave: "32",
+              valor: "3"
+              },
+              {
+              clave: "33",
+              valor: "3"
+              },
+              {
+              clave: "34",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -436,7 +1991,24 @@ router.post('/:idcompany',[
             clave: "DEP-0023",
             nombre: "Fiscal Graficadores",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -445,7 +2017,24 @@ router.post('/:idcompany',[
             clave: "DEP-0024",
             nombre: "Fiscal Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques.",
             criterio: "mes siguiente",
-            rangos: {valor: [25,25,25,25]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "25"
+              },
+              {
+              clave: "2",
+              valor: "25"
+              },
+              {
+              clave: "3",
+              valor: "25"
+              },
+              {
+              clave: "4",
+              valor: "25"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -454,7 +2043,88 @@ router.post('/:idcompany',[
             clave: "DEP-0020",
             nombre: "Fiscal Otros casos",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -463,7 +2133,68 @@ router.post('/:idcompany',[
             clave: "DEP-0021",
             nombre: "Fiscal Activos utilizados en la extracción y procesamiento de petroleo crudo y gas natural.",
             criterio: "mes siguiente",
-            rangos: {valor: [7,7,7,7,7,7,7,7,7,7,7,7,7,7,2]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "7"
+              },
+              {
+              clave: "2",
+              valor: "7"
+              },
+              {
+              clave: "3",
+              valor: "7"
+              },
+              {
+              clave: "4",
+              valor: "7"
+              },
+              {
+              clave: "5",
+              valor: "7"
+              },
+              {
+              clave: "6",
+              valor: "7"
+              },
+              {
+              clave: "7",
+              valor: "7"
+              },
+              {
+              clave: "8",
+              valor: "7"
+              },
+              {
+              clave: "9",
+              valor: "7"
+              },
+              {
+              clave: "10",
+              valor: "7"
+              },
+              {
+              clave: "11",
+              valor: "7"
+              },
+              {
+              clave: "12",
+              valor: "7"
+              },
+              {
+              clave: "13",
+              valor: "7"
+              },
+              {
+              clave: "14",
+              valor: "7"
+              },
+              {
+              clave: "15",
+              valor: "2"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -472,7 +2203,48 @@ router.post('/:idcompany',[
             clave: "DEP-0017",
             nombre: "Fiscal Equipo de comunicación, señalización y telemando.",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -481,7 +2253,24 @@ router.post('/:idcompany',[
             clave: "DEP-0018",
             nombre: "Fiscal Lectores ópticos",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -490,7 +2279,88 @@ router.post('/:idcompany',[
             clave: "DEP-0019",
             nombre: "Fiscal Activos utilizados en la producción de azúcar y sus derivados.",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -499,7 +2369,24 @@ router.post('/:idcompany',[
             clave: "DEP-0014",
             nombre: "Fiscal Unidades de almacenamiento externo y concentradores de redes de computo",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -508,7 +2395,24 @@ router.post('/:idcompany',[
             clave: "DEP-0015",
             nombre: "Fiscal Computadoras personales de escritorio y portátiles.",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -517,7 +2421,48 @@ router.post('/:idcompany',[
             clave: "DEP-0016",
             nombre: "Fiscal Mobiliario y equipo de oficina",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -526,7 +2471,56 @@ router.post('/:idcompany',[
             clave: "DEP-0011",
             nombre: "Fiscal Activos utilizados en la elaboración de productos químicos, petroquímicos y farmacobiológicos.",
             criterio: "mes siguiente",
-            rangos: {valor: [9,9,9,9,9,9,9,9,9,9,9,1]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "9"
+              },
+              {
+              clave: "2",
+              valor: "9"
+              },
+              {
+              clave: "3",
+              valor: "9"
+              },
+              {
+              clave: "4",
+              valor: "9"
+              },
+              {
+              clave: "5",
+              valor: "9"
+              },
+              {
+              clave: "6",
+              valor: "9"
+              },
+              {
+              clave: "7",
+              valor: "9"
+              },
+              {
+              clave: "8",
+              valor: "9"
+              },
+              {
+              clave: "9",
+              valor: "9"
+              },
+              {
+              clave: "10",
+              valor: "9"
+              },
+              {
+              clave: "11",
+              valor: "9"
+              },
+              {
+              clave: "12",
+              valor: "1"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -535,7 +2529,24 @@ router.post('/:idcompany',[
             clave: "DEP-0012",
             nombre: "Fiscal Digitalizadores",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -544,7 +2555,60 @@ router.post('/:idcompany',[
             clave: "DEP-0013",
             nombre: "Fiscal Activos utilizados en la fabricación de vehículos de motor y sus partes.",
             criterio: "mes siguiente",
-            rangos: {valor: [8,8,8,8,8,8,8,8,8,8,8,8,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "8"
+              },
+              {
+              clave: "2",
+              valor: "8"
+              },
+              {
+              clave: "3",
+              valor: "8"
+              },
+              {
+              clave: "4",
+              valor: "8"
+              },
+              {
+              clave: "5",
+              valor: "8"
+              },
+              {
+              clave: "6",
+              valor: "8"
+              },
+              {
+              clave: "7",
+              valor: "8"
+              },
+              {
+              clave: "8",
+              valor: "8"
+              },
+              {
+              clave: "9",
+              valor: "8"
+              },
+              {
+              clave: "10",
+              valor: "8"
+              },
+              {
+              clave: "11",
+              valor: "8"
+              },
+              {
+              clave: "12",
+              valor: "8"
+              },
+              {
+              clave: "13",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -553,7 +2617,76 @@ router.post('/:idcompany',[
             clave: "DEP-008",
             nombre: "Fiscal Activos utilizados en la fabricación de productos de tabaco y derivados del carbón natural.",
             criterio: "mes siguiente",
-            rangos: {valor: [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,4]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "6"
+              },
+              {
+              clave: "2",
+              valor: "6"
+              },
+              {
+              clave: "3",
+              valor: "6"
+              },
+              {
+              clave: "4",
+              valor: "6"
+              },
+              {
+              clave: "5",
+              valor: "6"
+              },
+              {
+              clave: "6",
+              valor: "6"
+              },
+              {
+              clave: "7",
+              valor: "6"
+              },
+              {
+              clave: "8",
+              valor: "6"
+              },
+              {
+              clave: "9",
+              valor: "6"
+              },
+              {
+              clave: "10",
+              valor: "6"
+              },
+              {
+              clave: "11",
+              valor: "6"
+              },
+              {
+              clave: "12",
+              valor: "6"
+              },
+              {
+              clave: "13",
+              valor: "6"
+              },
+              {
+              clave: "14",
+              valor: "6"
+              },
+              {
+              clave: "15",
+              valor: "6"
+              },
+              {
+              clave: "16",
+              valor: "6"
+              },
+              {
+              clave: "17",
+              valor: "4"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -562,7 +2695,12 @@ router.post('/:idcompany',[
             clave: "DEP-009",
             nombre: "Fiscal Adaptaciones que se realicen a instalaciones que impliquen adiciones o mejoras al activo fijo, que tengan como finalidad facilitar a las personas con discapacidad.",
             criterio: "mes siguiente",
-            rangos: {valor: [100]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "100"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -571,7 +2709,88 @@ router.post('/:idcompany',[
             clave: "DEP-0010",
             nombre: "Fiscal Activos utilizados en la generación, conducción, transformación y distribución de electricidad.",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -580,7 +2799,48 @@ router.post('/:idcompany',[
             clave: "DEP-006",
             nombre: "Fiscal Monumentos con certificado de restauración",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -589,7 +2849,88 @@ router.post('/:idcompany',[
             clave: "DEP-007",
             nombre: "Fiscal Activos utilizados en la molienda de granos.",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -598,7 +2939,48 @@ router.post('/:idcompany',[
             clave: "DEP-005",
             nombre: "Fiscal Activos utilizados en el transporte eléctrico.",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -607,7 +2989,48 @@ router.post('/:idcompany',[
             clave: "DEP-004",
             nombre: "Fiscal Otros.",
             criterio: "mes siguiente",
-            rangos: {valor: [10,10,10,10,10,10,10,10,10,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "10"
+              },
+              {
+              clave: "2",
+              valor: "10"
+              },
+              {
+              clave: "3",
+              valor: "10"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+              {
+              clave: "5",
+              valor: "10"
+              },
+              {
+              clave: "6",
+              valor: "10"
+              },
+              {
+              clave: "7",
+              valor: "10"
+              },
+              {
+              clave: "8",
+              valor: "10"
+              },
+              {
+              clave: "9",
+              valor: "10"
+              },
+              {
+              clave: "10",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -616,7 +3039,68 @@ router.post('/:idcompany',[
             clave: "DEP-001",
             nombre: "Fiscal Maquinaria niveladora de vìas, desclavadoras, esmeriles para vìas, gatos de motor para levantar la vìa, removedora, insertadora y taladradora de durmientes.",
             criterio: "mes siguiente",
-            rangos: {valor: [7,7,7,7,7,7,7,7,7,7,7,7,7,7,2]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "7"
+              },
+              {
+              clave: "2",
+              valor: "7"
+              },
+              {
+              clave: "3",
+              valor: "7"
+              },
+              {
+              clave: "4",
+              valor: "7"
+              },
+              {
+              clave: "5",
+              valor: "7"
+              },
+              {
+              clave: "6",
+              valor: "7"
+              },
+              {
+              clave: "7",
+              valor: "7"
+              },
+              {
+              clave: "8",
+              valor: "7"
+              },
+              {
+              clave: "9",
+              valor: "7"
+              },
+              {
+              clave: "10",
+              valor: "7"
+              },
+              {
+              clave: "11",
+              valor: "7"
+              },
+              {
+              clave: "12",
+              valor: "7"
+              },
+              {
+              clave: "13",
+              valor: "7"
+              },
+              {
+              clave: "14",
+              valor: "7"
+              },
+              {
+              clave: "15",
+              valor: "2"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -625,7 +3109,12 @@ router.post('/:idcompany',[
             clave: "DEP-002",
             nombre: "Fiscal Semovientes y vegetales",
             criterio: "mes siguiente",
-            rangos: {valor: [100]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "100"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -634,7 +3123,24 @@ router.post('/:idcompany',[
             clave: "DEP-003",
             nombre: "Fiscal Impresoras",
             criterio: "mes siguiente",
-            rangos: {valor: [30,30,30,10]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "30"
+              },
+              {
+              clave: "2",
+              valor: "30"
+              },
+              {
+              clave: "3",
+              valor: "30"
+              },
+              {
+              clave: "4",
+              valor: "10"
+              },
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,
@@ -643,7 +3149,88 @@ router.post('/:idcompany',[
             clave: "DEP-000",
             nombre: "Fiscal Torres de transmisión y cables, excepto los de fibra óptica",
             criterio: "mes siguiente",
-            rangos: {valor: [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5]},
+            rangos: [
+              {
+              clave: "1",
+              valor: "5"
+              },
+              {
+              clave: "2",
+              valor: "5"
+              },
+              {
+              clave: "3",
+              valor: "5"
+              },
+              {
+              clave: "4",
+              valor: "5"
+              },
+              {
+              clave: "5",
+              valor: "5"
+              },
+              {
+              clave: "6",
+              valor: "5"
+              },
+              {
+              clave: "7",
+              valor: "5"
+              },
+              {
+              clave: "8",
+              valor: "5"
+              },
+              {
+              clave: "9",
+              valor: "5"
+              },
+              {
+              clave: "10",
+              valor: "5"
+              },
+              {
+              clave: "11",
+              valor: "5"
+              },
+              {
+              clave: "12",
+              valor: "5"
+              },
+              {
+              clave: "13",
+              valor: "5"
+              },
+              {
+              clave: "14",
+              valor: "5"
+              },
+              {
+              clave: "15",
+              valor: "5"
+              },
+              {
+              clave: "16",
+              valor: "5"
+              },
+              {
+              clave: "17",
+              valor: "5"
+              },
+              {
+              clave: "18",
+              valor: "5"
+              },
+              {
+              clave: "19",
+              valor: "5"
+              },
+              {
+              clave: "20",
+              valor: "5"
+              }
+            ],
             meses: 12,
             company,
             empresa: empresaDB._id,

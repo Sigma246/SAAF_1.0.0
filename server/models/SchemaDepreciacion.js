@@ -6,12 +6,17 @@ const uniqueValidator = require('mongoose-unique-validator');
 
 
 const RangoDB = new Schema({
-    valor: {
-        type: [Number],
+    clave: {
+        type: String,
         require: true,
         trim: true,
     },
-    fecha: {type:Date, default:Date.now},
+    valor: {
+        type: Number,
+        require: true,
+        trim: true,
+    },
+    estado:{type: Boolean, default: true},
   });
 
 
