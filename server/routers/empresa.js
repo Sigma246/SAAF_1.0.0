@@ -36,7 +36,6 @@ router.post('/:idcompany',[
 
         //Crea Directorio de ubicacion para empresa
         let ubicacion = new Ubicacion({
-          nombre: empresaDB._id,
           company,
           empresa: empresaDB._id,
           children: []

@@ -19,7 +19,8 @@ router.put('/put/:idcompany/:idempresa/:idubicacion',[
     let id = req.params.idubicacion;
 
     try {
-        let ubicacion = await Ubicacion.updateMany({_id: id, company, empresa}, {$set:{'children': body.children}});    
+        let ubicacion1 = await Ubicacion.updateMany({_id: id, company, empresa}, {$set:{'children': body.children}});
+        let ubicacion = await Ubicacion.find({company, empresa});
         res.json({
             ok: true,
             ubicacion,

@@ -9,7 +9,6 @@ const Childs = new Schema();
 Childs.add({
     name: {
         type: String,
-        //required: true
     },
     fecha: {type:Date, default:Date.now},
     estado:{type: Boolean, default: true},
@@ -19,10 +18,6 @@ Childs.add({
 
 const UbicacionDB = new Schema({
    
-    nombre: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Empresa"
-    },
     children: [Childs],
     company: {
         type: mongoose.Schema.Types.ObjectId,
